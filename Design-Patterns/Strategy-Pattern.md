@@ -14,6 +14,25 @@
 ```java
 package strategy.before;
 
+public class ExcuteClass {
+	public static void main(String[] args) {
+		Character character = new Character();
+		character.attack();
+		
+		Character character2 = new Character("strong");
+		character2.attack();
+		
+		character2.setAttackType("weak");
+		character2.attack();
+		
+		//NormalAttack을 추가해야 할 경우
+		//Character 클래스를 수정하지 않고서는 불가능
+	}
+}
+```
+```java
+package strategy.before;
+
 public class Character {
 	private String attackType;
 	
@@ -48,26 +67,33 @@ public class Character {
 	}
 }
 ```
+- Strategy pattern 적용 후
 ```java
-package strategy.before;
+package strategy.after;
+
+import strategy.after.Character.StrongAttack;
+import strategy.after.Character.WeakAttack;
 
 public class ExcuteClass {
 	public static void main(String[] args) {
 		Character character = new Character();
 		character.attack();
 		
-		Character character2 = new Character("strong");
+		Character character2 = new Character(new StrongAttack());
 		character2.attack();
 		
-		character2.setAttackType("weak");
+		character2.setAttackType(new WeakAttack());
 		character2.attack();
 		
 		//NormalAttack을 추가해야 할 경우
-		//Character 클래스를 수정하지 않고서는 불가능
+		//Character 클래스를 수정하지 않고, 변경 가능! 
+		character2.setAttackType(()->{
+			System.out.println("NormalAttack");
+		});
+		character2.attack();
 	}
 }
 ```
-- Strategy pattern 적용 후
 ```java
 package strategy.after;
 
@@ -109,33 +135,6 @@ public class Character {
 	}
 }
 ```
-```java
-package strategy.after;
-
-import strategy.after.Character.StrongAttack;
-import strategy.after.Character.WeakAttack;
-
-public class ExcuteClass {
-	public static void main(String[] args) {
-		Character character = new Character();
-		character.attack();
-		
-		Character character2 = new Character(new StrongAttack());
-		character2.attack();
-		
-		character2.setAttackType(new WeakAttack());
-		character2.attack();
-		
-		//NormalAttack을 추가해야 할 경우
-		//Character 클래스를 수정하지 않고, 변경 가능! 
-		character2.setAttackType(()->{
-			System.out.println("NormalAttack");
-		});
-		character2.attack();
-	}
-}
-```
-
-## Refer
+## 참고
 - [Head First Design Patterns: 스토리가 있는 패턴 학습법](http://www.hanbit.co.kr/store/books/look.php?p_code=B9860513241)
 - [TECHSCORE-デザインパターン：10. Strategy パターン](http://www.techscore.com/tech/DesignPattern/Strategy.html)
