@@ -7,3 +7,5 @@
   </properties>
 </project>
 ```
+## 참고
+- [[부스트코스] 웹 프로그래밍 : DB연결 웹 애플리케이션 > Web API 실습](https://www.edwith.org/boostcourse-web)
