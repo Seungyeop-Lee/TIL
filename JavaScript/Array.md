@@ -11,6 +11,7 @@ var array2 = new Array(1, 2, 3, 4, 5);
 var array3 = new Array(5);  //매개변수의 길이를 갖는 빈 배열 생성
 ```
 - 이용
+
    데이터 추가 | 데이터 추출 | 데이터 복사 
   ----------|----------|----------
   `array[index] = value`|`variable = array.pop()`|`variable = array[index]`
