@@ -59,7 +59,7 @@ console.log(array); //[4, 3, 2, 1, 0]
 ```
 #### `Array.prototype.sort([CompareFunction])`
 - 데이터를 오름차순으로 정렬한다.
-- CompareFunction을 매개변수로 넣어줬을 경우 CompareFunction을 토대로 정렬한다. (CompareFunction은 java의 Comparotor와 동일)
+- CompareFunction을 매개변수로 넣어줬을 경우 CompareFunction을 토대로 정렬한다. (CompareFunction은 java의 Comparator와 동일)
 ```JavaScript
 //오름차순 정렬
 var array = [2, 4, 5, 5, 1, 9];
