@@ -192,7 +192,15 @@ console.log(joinedArray2);  //10-20-30-40-50
 - 검색범위 및 순서는 `fromIndex`에 해당하는 index부터 `array.length-1`에 해당하는 index까지 순차적으로
 - `fromIndex`의 초기값은 0
 ```JavaScript
-//TODO 예제 코드 삽입
+var array = [10, 20, 30, 20, 50];
+
+//Array.prototype.indexOf(searchElement)
+var index1 = array.indexOf(20);
+console.log(index1);  //1
+
+//Array.prototype.indexOf(searchElement, fromIndex)
+var index2 = array.indexOf(20, 2);
+console.log(index2);  //3
 ```
 
 #### `Array.prototype.lastIndexOf(searchElement)`
@@ -203,25 +211,131 @@ console.log(joinedArray2);  //10-20-30-40-50
   - `fromIndex`가 없는 경우 : `array.length-1`에 해당하는 index부터 index 0까지 순차적으로
   - `fromIndex`가 있는 경우 : `fromIndex`에 해당하는 index부터 index 0까지 순차적으로
 ```JavaScript
-//TODO 예제 코드 삽입
+var array = [10, 20, 30, 20, 50];
+
+//Array.prototype.lastIndexOf(searchElement)
+var index1 = array.lastIndexOf(20);
+console.log(index1);  //3
+
+//Array.prototype.lastIndexOf(searchElement, fromIndex)
+var index2 = array.lastIndexOf(20, 2);
+console.log(index2);  //1
 ```
 
 #### `Array.prototype.slice([begin[, end]])`
 - `begin`에 해당하는 index부터 `end-1`에 해당하는 index까지의 배열을 반환한다.
 - `begin`의 초기값은 0, `end`의 초기값은 `array.length`
 ```JavaScript
-//TODO 예제 코드 삽입
+var array = [10, 20, 30, 40, 50];
+
+//Array.prototype.slice()
+var slicedArray1 = array.slice();
+console.log(slicedArray1);  //[10, 20, 30, 40, 50]
+
+//Array.prototype.slice(begin)
+var slicedArray2 = array.slice(1);
+console.log(slicedArray2);  //[20, 30, 40, 50]
+
+//Array.prototype.slice(begin, end)
+var slicedArray3 = array.slice(1,3);
+console.log(slicedArray3);  //[20, 30]
 ```
 ----------------------------------------
 ### Iteration methods
-- 배열의 length만큼 반복하여 실행 된다.
-- 매개변수로 받은 함수를 콜백한다.
-#### `Array.prototype.foreach()`
-#### `Array.prototype.filter()`
-#### `Array.prototype.map()`
-#### `Array.prototype.reduce()`
-#### `Array.prototype.some()`
-#### `Array.prototype.every()`
+- 배열의 데이터를 매개변수로 하는 콜백함수가 length만큼 반복하여 실행 된다.
+- `foreach()`, `filter()`, `map()`, `some()`, `every()`의 경우 `callback` 함수 내 매개변수 및 `thisArg`의 의미
+
+매개변수 | 의미
+--------|------
+`curruntValue`|현재의 데이터
+`index`|배열 상 `curruntValue`의  index
+`array`|현재 반복하고 있는 배열의 참조
+`thisArg`|callback 함수 내에서 `this`가 가르키는 객체를 설정(`this`를 설정하는 것이 일반적, 설정하지 않으면 디폴트의 `this`)
+
+#### `Array.prototype.foreach(callback(curruntValue[, index[, array]])[, thisArg])`
+- array.length에 해당하는 값만큼 `callback` 함수가 실행된다.
+- return값은 void
+```JavaScript
+var array = [10, 20, 30, 40, 50];
+
+var curruntValues = [];
+var indexs = [];
+
+//Array.prototype.foreach(callback(curruntValue[, index[, array]]))
+var forEachResult = array.forEach(function(v, i, a) {
+  curruntValues.push(v);
+  indexs.push(i);
+  console.log(a); //[10, 20, 30, 40, 50]
+});
+console.log(curruntValues); //[10, 20, 30, 40, 50]
+console.log(indexs);  //[0, 1, 2, 3, 4]
+console.log(forEachResult); //undefined
+```
+#### `Array.prototype.filter(callback(curruntValue[, index[, array]])[, thisArg])`
+- `callback` 함수의 실행 결과 `true`면 `curruntValue`를 남기고, `false`면 제외하여 새로운 배열을 반환한다.
+```JavaScript
+var array = [1, 2, 3, 4, 5];
+
+//Array.prototype.filter(callback(curruntValue))
+var filterResult = array.filter(function(v) {
+  return v % 2 === 0;
+});
+console.log(filterResult); //[2, 4]
+```
+#### `Array.prototype.map(callback(curruntValue[, index[, array]])[, thisArg])`
+- `callback` 함수에서 반환되는 값으로 구성된 새로운 배열을 반환한다.
+```JavaScript
+var array = [1, 2, 3, 4, 5];
+
+//Array.prototype.map(callback(curruntValue))
+var mapResult = array.map(function(v) {
+  return v * 10;
+});
+console.log(mapResult); //[10, 20, 30, 40, 50]
+```
+#### `Array.prototype.some(callback(curruntValue[, index[, array]])[, thisArg])`
+- `callback` 함수 실행결과, 1번이라도 `true`가 반환되면 `some()`메소드의 결과로 `true`가 반환된다.
+```JavaScript
+var array = [1, 2, 3, 4, 5];
+
+//Array.prototype.some(callback(curruntValue))
+var someResult = array.some(function(v) {
+  return v === 2;
+});
+console.log(someResult); //true
+```
+#### `Array.prototype.every(callback(curruntValue[, index[, array]])[, thisArg])`
+- `callback` 함수 실행결과, 1번이라도 `false`가 반환되면 `every()`메소드의 결과로 `false`가 반환된다.
+```JavaScript
+var array = [1, 2, 3, 4, 5];
+
+//Array.prototype.every(callback(curruntValue))
+var everyResult = array.every(function(v) {
+  return typeof v === 'number';
+});
+console.log(everyResult); //true
+```
+#### `Array.prototype.reduce(callback(accumulator, currentValue[, currentIndexOptional[, array]])[, initialValue])`
+- `callback` 함수를 실행시켜 반환된 값을 다음 `callback` 함수의 `accumulator`로 설정하는 것을 반복한다.
+- 마지막 `callback` 함수를 실행시켜 반환된 값을 `reduce()`메소드의 결과로 반환한다.
+- `callback` 함수 내 매개변수 및 `initialValue`의 의미
+
+매개변수 | 의미
+--------|------
+`accumulator`|`callback`함수가 반복되면서 누산 된 데이터
+`currentValue`|현재의 데이터
+`currentIndex`|배열 상 `curruntValue`의 index
+`array`|현재 반복하고 있는 배열의 참조
+`initialValue`|`callback`함수가 최초로 실행되기 전 `accumulator`의 초기 값 설정, 생략하였을 경우 배열의 첫번째 데이터가 초기값으로 지정 됨
+```JavaScript
+var array = [1, 2, 3, 4];
+
+//Array.prototype.reduce(callback(accumulator, currentValue))
+var reduceResult = array.reduce(function(acc, curr) {
+  return acc + curr;
+});
+console.log(reduceResult); //10
+```
 ----------------------------------------
 ## 참고
 - [[부스트코스] 웹 프로그래밍 : 웹 애플리케이션 개발 1/4 > 자바스크립트 배열](https://www.edwith.org/boostcourse-web)
