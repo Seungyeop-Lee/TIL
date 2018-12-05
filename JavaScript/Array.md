@@ -19,37 +19,56 @@ var array3 = new Array(5);  //매개변수의 길이를 갖는 빈 배열 생성
   `array.unshift(value)`| - | - 
 ```Javascript
 var array = [10];
+
 //데이터 추가
-array[1] = 20;  //[10, 20]
-array.push(30); //[10, 20, 30]
-array.unshift(0); //[0, 10, 20, 30]
+array[1] = 20;
+console.log(array); //[10, 20]
+
+array.push(30);
+console.log(array); //[10, 20, 30]
+
+array.unshift(0);
+console.log(array); //[0, 10, 20, 30]
+
+
 //데이터 추출
-var data1 = array.pop(); //[0, 10, 20]
+var data1 = array.pop();
+console.log(array); //[0, 10, 20]
 console.log(data1); //30
-var data2 = array.shift();  //[10, 20]
+
+var data2 = array.shift();
+console.log(array); //[10, 20]
 console.log(data2); //0
+
+
 //데이터 복사
-var data3 = array[0]; //[10, 20]
+var data3 = array[0];
+console.log(array); //[10, 20]
 console.log(data3); //10
-var data4 = array['1']; //[10, 20]
+
+var data4 = array['1'];
+console.log(array); //[10, 20]
 console.log(data4); //20
 ```
 ----------------------------------------
 ## 내장 속성
+
 #### `Array.prototype.length`
 - 배열의 길이를 저장하고 있다.
 - 배열의 길이는 가변적, 값을 저장하지 않으면 초기값(undefined)이 저장된다.
 ```JavaScript
 var a = [];
-a.length; //0
+console.log(a.length); //0
 a[500] = undefined;
-a.length; //501
-a[250]; //undefined
+console.log(a.length); //501
+console.log(a[250]); //undefined
 ```
 ----------------------------------------
 ## 내장 메서드
+
 ### Mutator methods
 - 메서드가 실행되는 배열 자체를 변경한다.
+
 #### `Array.prototype.reverse()`
 - 배열에 저장되어 있는 데이터를 역순으로 변경한다.
 ```JavaScript
@@ -57,12 +76,14 @@ var array = [0, 1, 2, 3, 4];
 array.reverse();
 console.log(array); //[4, 3, 2, 1, 0]
 ```
+
 #### `Array.prototype.sort([CompareFunction])`
 - 데이터를 오름차순으로 정렬한다.
-- CompareFunction을 매개변수로 넣어줬을 경우 CompareFunction을 토대로 정렬한다. (CompareFunction은 java의 Comparator와 동일)
+- `CompareFunction`을 인수로 넣어줬을 경우 `CompareFunction`을 토대로 정렬한다. (`CompareFunction`은 java의 `Comparator`와 동일)
 ```JavaScript
-//오름차순 정렬
 var array = [2, 4, 5, 5, 1, 9];
+
+//오름차순 정렬
 array.sort();
 console.log(array); //[1, 2, 4, 5, 5, 9]
 
@@ -77,19 +98,120 @@ array.sort((a, b) => {
 });
 console.log(array); //[9, 5, 5, 4, 2, 1]
 ```
-#### `Array.prototype.splice()`
 
-#### `Array.prototype.fill()`
+#### `Array.prototype.splice(start[, deleteCount[, item1[, item2[, ...]]]])`
+- `start`에 해당하는 index부터 `deleteCount`갯수만큼 잘라내고, `item`을 잘라낸 위치에 추가한다.
+- `deleteCount`의 초기값은 `array.length - start`
+```JavaScript
+var array = [0, 10, 20, 30, 40, 50, 60];
+
+//Array.prototype.splice(start)
+var splicedArray1 = array.splice(5);
+console.log(array); //[0, 10, 20, 30, 40];
+console.log(splicedArray1);  //[50, 60];
+
+//Array.prototype.splice(start, deleteCount)
+var splicedArray2 = array.splice(0, 2);
+console.log(array); //[20, 30, 40];
+console.log(splicedArray2); //[0, 10];
+
+//Array.prototype.splice(start, deleteCount, item)
+var splicedArray3 = array.splice(1, 1, 99);
+console.log(array); //[20, 99, 40];
+console.log(splicedArray3); //[30];
+```
+
+#### `Array.prototype.fill(value[, start[, end]])`
+- `value`값으로 `start`에 해당하는 index부터 `end-1`에 해당하는 index까지 채워 넣는다.
+- `start`의 초기값은 0, `end`의 초기값은 `array.length`
+```JavaScript
+var array = [1, 2, 3, 4, 5];
+
+//Array.prototype.fill(value)
+array.fill(9);
+console.log(array); //[9, 9, 9, 9, 9]
+
+//Array.prototype.fill(value, start)
+array.fill('a', 3);
+console.log(array); //[9, 9, 9, "a", "a"]
+
+//Array.prototype.fill(value, start, end)
+array.fill('b', 0, 2);
+console.log(array); //["b", "b", 9, "a", "a"]
+```
 ----------------------------------------
 ### Accessor methods
 - 배열의 값을 접근하여 새로운 배열을 반환한다.
 - 메서드가 실행되는 배열은 변경하지 않는다.
-#### `Array.prototype.concat()`
-#### `Array.prototype.includes()`
-#### `Array.prototype.join()`
-#### `Array.prototype.indexOf()`
-#### `Array.prototype.lastIndexOf()`
-#### `Array.prototype.slice()`
+
+#### `Array.prototype.concat(array)`
+- 인수로 넣은 배열을 기존 배열의 뒤에 연결한 새로운 배열을 반환한다.
+```JavaScript
+var frontArray = [10, 20, 30];
+var backArray = [40, 50, 60];
+var fullArray = frontArray.concat(backArray);
+console.log(fullArray); //[10, 20, 30, 40, 50, 60]
+```
+
+#### `Array.prototype.includes(searchElement[, fromIndex])`
+- `searchElement`에 해당하는 데이터가 있는지 없는지 확인 후 boolean값을 반환한다.
+- 검색범위는 `fromIndex`에 해당하는 index부터 `array.length-1`에 해당하는 index까지
+- `fromIndex`의 초기값은 0
+```JavaScript
+var array = [10, 20, 30, 40, 50];
+
+//Array.prototype.includes(searchElement)
+var result1 = array.includes(20);
+console.log(result1); //true
+
+//Array.prototype.includes(searchElement, fromIndex)
+var result2 = array.includes(20, 1);
+console.log(result2); //true
+var result3 = array.includes(20, 2);
+console.log(result3); //false
+```
+
+#### `Array.prototype.join([separator])`
+- 배열의 데이터를 `separator`로 연결하여 하나의 문자열로 만들어 반환한다.
+- `separator`의 초기값은 `','`
+```JavaScript
+var array = [10, 20, 30, 40, 50];
+
+//Array.prototype.join()
+var joinedArray1 = array.join();
+console.log(joinedArray1);  //10,20,30,40,50
+
+//Array.prototype.join(separator)
+var joinedArray2 = array.join('-');
+console.log(joinedArray2);  //10-20-30-40-50
+```
+
+#### `Array.prototype.indexOf(searchElement[, fromIndex])`
+- `searchElement`에 해당하는 데이터가 존재하는 index를 반환한다.
+- 데이터가 존재하지 않으면 -1을 반환한다.
+- 검색범위 및 순서는 `fromIndex`에 해당하는 index부터 `array.length-1`에 해당하는 index까지 순차적으로
+- `fromIndex`의 초기값은 0
+```JavaScript
+//TODO 예제 코드 삽입
+```
+
+#### `Array.prototype.lastIndexOf(searchElement)`
+#### `Array.prototype.lastIndexOf(searchElement, fromIndex)`
+- `searchElement`에 해당하는 데이터가 존재하는 index를 반환한다.
+- 데이터가 존재하지 않으면 -1을 반환한다.
+- 검색범위 및 순서
+  - `fromIndex`가 없는 경우 : `array.length-1`에 해당하는 index부터 index 0까지 순차적으로
+  - `fromIndex`가 있는 경우 : `fromIndex`에 해당하는 index부터 index 0까지 순차적으로
+```JavaScript
+//TODO 예제 코드 삽입
+```
+
+#### `Array.prototype.slice([begin[, end]])`
+- `begin`에 해당하는 index부터 `end-1`에 해당하는 index까지의 배열을 반환한다.
+- `begin`의 초기값은 0, `end`의 초기값은 `array.length`
+```JavaScript
+//TODO 예제 코드 삽입
+```
 ----------------------------------------
 ### Iteration methods
 - 배열의 length만큼 반복하여 실행 된다.
