@@ -250,11 +250,11 @@ console.log(slicedArray3);  //[20, 30]
 `curruntValue`|현재의 데이터
 `index`|배열 상 `curruntValue`의  index
 `array`|현재 반복하고 있는 배열의 참조
-`thisArg`|callback 함수 내에서 `this`가 가르키는 객체를 설정(`this`를 설정하는 것이 일반적, 설정하지 않으면 디폴트의 `this`)
+`thisArg`|`callback` 함수 내에서 `this`가 가르키는 객체를 설정(`this`를 설정하는 것이 일반적, 설정하지 않으면 디폴트의 `this`)
 
 #### `Array.prototype.foreach(callback(curruntValue[, index[, array]])[, thisArg])`
-- array.length에 해당하는 값만큼 `callback` 함수가 실행된다.
-- return값은 void
+- `array.length`에 해당하는 값만큼 `callback` 함수가 실행된다.
+- return값은 `void`
 ```JavaScript
 var array = [10, 20, 30, 40, 50];
 
