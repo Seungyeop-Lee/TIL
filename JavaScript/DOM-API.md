@@ -60,7 +60,73 @@
   - 반환 형태가 콜렉션 : 빈 콜렉션 객체 반환
   - 반환 형태가 객체 : `null`
 ```HTML
-<!-- TODO 예제코드 작성 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of DOM exploration</title>
+</head>
+<body>
+  <div class="parent">
+    <div class="nowDiv">
+      begin
+      <p class="firstChild">p1</p>
+      <p class="secondChild">p2</p>
+      <p class="thirdChild">p3</p>
+      end
+    </div>
+  </div>
+</body>
+<script>
+  var nowDivTag = document.getElementsByClassName('nowDiv')[0];
+  console.log(nowDivTag.tagName); //DIV
+  console.log(nowDivTag.textContent); //\n      begin\n      p1\n      p2\n      p3\n      end\n    
+  console.log(nowDivTag.nodeType);  //1
+
+  var childNodes = nowDivTag.childNodes;
+  console.log(childNodes.toString()); //[object NodeList]
+  console.log(childNodes.length); //7
+  
+  var children = nowDivTag.children;
+  console.log(children.toString()); //[object HTMLCollection]
+  console.log(children.length); //3
+
+
+  var firstChild = nowDivTag.firstChild;
+  console.log(firstChild.textContent);  //\n      begin\n      
+  
+  var firstElementChild = nowDivTag.firstElementChild;
+  console.log(firstElementChild.textContent); //p1
+  
+  var lastChild = nowDivTag.lastChild;
+  console.log(lastChild.textContent); //\n      end\n    
+  
+  var lastElementChild = nowDivTag.lastElementChild;
+  console.log(lastElementChild.textContent);  //p3
+
+
+  var parentNode = nowDivTag.parentNode;
+  console.log(parentNode.className);  //parent
+
+  var parentElement = nowDivTag.parentElement;
+  console.log(parentElement.className); //parent
+
+
+  var secondChildElement = document.getElementsByClassName('secondChild')[0];
+  
+  var previousSibling = secondChildElement.previousSibling;
+  console.log(previousSibling.textContent); //\n      
+  
+  var previousElementSibling = secondChildElement.previousElementSibling;
+  console.log(previousElementSibling.textContent);  //p1
+  
+  var nextSibling = secondChildElement.nextSibling;
+  console.log(nextSibling.textContent); //\n      
+
+  var nextElementSibling = secondChildElement.nextElementSibling;
+  console.log(nextElementSibling.textContent);  //p3
+</script>
+</html>
 ```
 
 ## 참고
