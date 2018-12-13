@@ -1,9 +1,9 @@
 # DOM API (Document Object Model Application Programming Interface)
 - DOM을 프로그래밍 언어(JavaScript)에서 이용할 수 있게 제공되는 인터페이스를 가리킨다.
 
+
 ## 검색
 - `document`의 내장 메소드를 통하여 검색 가능하다.
-
 
 접근 메소드 | 매개변수 | 속도 | 반환 형태
 -----------|---------|------|----------
@@ -27,18 +27,22 @@
     var tag6 = document.querySelectorAll('.divClass');
   </script>
 ```
+
 - `HTMLCollection` vs. `NodeList`
   - 공통점 : DOM Node의 컬렉션 객체이며 유사배열이다.
   - 차이점
 
 `HTMLCollection` | `NodeList`
 ---------------|----------
-요소 노드만을 가지고 있다. | 요소 노드, 텍스트, 노드, 코멘트 노드를 가지고 있다.
+요소 노드만을 가지고 있다. | 요소 노드, 텍스트 노드, 코멘트 노드를 가지고 있다.
 (컬렉션 객체에 포함된) 노드의 상태변경을 실시간으로 반영한다. | 노드의 상태변경을 반영하지 않는다.
+
 
 ## 탐색
 - 요소 노드 객체의 내장 속성 및 메소드를 이용한다.
+
 ### 내장 속성
+
 속성명 | 설명 | 반환 형태
 ------|------|----------
 `tagName` | 요소 노드의 태그이름 | 문자열
@@ -56,9 +60,11 @@
 `previoutElementSibling` | 자신 전의 형제 요소 노드 | `HTMLElement` 상속객체
 `nextSibling` | 다음 형제 노드 | `Node` 상속객체
 `nextElementSibling` | 다음 형제 요소 노드 | `HTMLElement` 상속객체
+
 - 값이 존재하지 않는경우
   - 반환 형태가 콜렉션 : 빈 콜렉션 객체 반환
   - 반환 형태가 객체 : `null`
+
 ```HTML
 <!DOCTYPE html>
 <html>
@@ -128,6 +134,58 @@
 </script>
 </html>
 ```
+
+### 내장 메소드
+
+메소드명 | 설명 | 반환 형태
+------|------|----------
+`hasChildNodes()` | 자식 노드를 소유유무를 반환 | `boolean`
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of DOM exploration</title>
+</head>
+<body>
+  <p>pTagText</p>
+</body>
+<script>
+  var pTag = document.getElementsByTagName('p')[0];
+  console.log(pTag.hasChildNodes());  //true
+
+  var pTagTextNode = pTag.firstChild;
+  console.log(pTagTextNode.hasChildNodes());  //false
+</script>
+</html>
+```
+
+
+## 생성 및 삽입-삭제
+- DOM 노드 객체 삽입-삭제 방법은 DOM 객체 생성 후 삽입-삭제, HTML 구문 직접 삽입-삭제로 나눌 수 있다.
+
+### DOM 객체 생성 후 삽입-삭제
+- DOM 노드 객체 생성 메소드
+
+메소드명 | 설명 | 반환 형태
+--------|------|----------
+`document.createElement(tagName)` | 인수값에 해당하는 태그의 요소 노드 객체를 생성한다. | `HTMLElement` 상속객체
+`document.createAttribute(attributeName)` | 인수값에 해당하는 값의 속성 노드 객체를 생성한다. | `Attr` 객체
+`document.createTextNode(data)` | 인수값에 해당하는 값을 가지는 텍스트 노드 객체를 생성한다. | `Text` 객체
+`document.createComment(data)` | 인수값에 해당하는 값을 가지는 코멘트 노드 객체를 생성한다. | `Comment` 객체
+`node.cloneNode(deep)` | node에 해당하는 노드를 복제한다. deep은 자손복사 유무 설정 | `Node` 상속객체
+
+- DOM 노드 객체 삽입 메소드
+
+메소드명 | 설명
+--------|------
+`appendChild(node)` | 
+`insertBefore(node)` | 
+`insertAdjacentElement(position, element)` | 
+
+- DOM 노드 객체 삭제 메소드
+
 
 ## 참고
 - [jsperf : element node search speed test](https://jsperf.com/element-node-search-speed-test)
