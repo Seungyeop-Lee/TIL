@@ -176,16 +176,19 @@
 `document.createComment(data)` | 인수값에 해당하는 값을 가지는 코멘트 노드 객체를 생성한다. | `Comment` 객체
 `node.cloneNode(deep)` | node에 해당하는 노드를 복제한다. deep은 자손복사 유무 설정 | `Node` 상속객체
 
-- DOM 노드 객체 삽입 메소드
+- DOM 노드 객체 삽입-삭제-수정 메소드
 
 메소드명 | 설명
 --------|------
-`appendChild(node)` | 
-`insertBefore(node)` | 
-`insertAdjacentElement(position, element)` | 
+`appendChild(node)` | 메소드가 실행되는 객체의 자식 요소로 `node`를 추가한다. 기존 자식 요소가 있을 경우 그 뒤에 추가된다.
+`insertBefore(newNode, existingNode)` | 메소드가 실행되는 객체의 자식 요소 중에 `existingNode` 바로 앞 위치에 `newNode`를 추가한다. `existingNode`가 `null`일 경우 가장 뒤에 추가된다.
+`insertAdjacentElement(position, element)` | 메소드가 실행되는 객체의 `position`에 해당하는 위치에 `element`를 추가한다.
+`removeChild(node)` | 메소드가 실행되는 객체의 자식 요소 중 `node`에 해당하는 요소를 삭제한다.
+`replaceChild(newNode, oldNode)` | 메소드가 실행되는 객체의 자식 요소 중 `oldNode`에 해당하는 요소를 `newNode`로 치환한다.
 
-- DOM 노드 객체 삭제 메소드
+```html
 
+```
 
 ## 참고
 - [jsperf : element node search speed test](https://jsperf.com/element-node-search-speed-test)
