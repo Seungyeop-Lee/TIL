@@ -45,21 +45,21 @@
 
 속성명 | 설명 | 반환 형태
 ------|------|----------
-`tagName` | 요소 노드의 태그이름 | 문자열
-`textContent` | 요소 노드가 가지고 있는 텍스트 | 문자열
-`nodeType` | 노드의 타입 | 1~12 중 하나의 숫자 <br>(요소 노드: 1, 속성 노드: 2, 텍스트 노드: 3, 코멘트 노드: 8, 문서 노드: 9)
-`childNodes` | 자식 노드의 콜렉션 | `NodeList`
-`children` | 자식 요소 노드의 콜렉션 | `HTMLCollection`
-`firstChild` | 첫번째 자식 노드 | `Node` 상속객체
-`firstElementChild` | 첫번째 자식 요소 노드 | `HTMLElement` 상속객체
-`lastChild` | 마지막 자식 노드 | `Node` 상속객체
-`lastElementChild` | 마지막 자식 요소 노드 | `HTMLElement` 상속객체
-`parentNode` | 부모 노드 | `Node` 상속객체
-`parentElement` | 부모 요소 노드 | `HTMLElement` 상속객체
-`previousSibling` | 자신 전의 형제 노드 | `Node` 상속객체
-`previoutElementSibling` | 자신 전의 형제 요소 노드 | `HTMLElement` 상속객체
-`nextSibling` | 다음 형제 노드 | `Node` 상속객체
-`nextElementSibling` | 다음 형제 요소 노드 | `HTMLElement` 상속객체
+`element.tagName` | 요소 노드의 태그이름 | 문자열
+`node.textContent` | 요소 노드가 가지고 있는 텍스트 | 문자열
+`node.nodeType` | 노드의 타입 | 1~12 중 하나의 숫자 <br>(요소 노드: 1, 속성 노드: 2, 텍스트 노드: 3, 코멘트 노드: 8, 문서 노드: 9)
+`element.childNodes` | 자식 노드의 콜렉션 | `NodeList`
+`element.children` | 자식 요소 노드의 콜렉션 | `HTMLCollection`
+`node.firstChild` | 첫번째 자식 노드 | `Node` 상속객체
+`element.firstElementChild` | 첫번째 자식 요소 노드 | `HTMLElement` 상속객체
+`node.lastChild` | 마지막 자식 노드 | `Node` 상속객체
+`element.lastElementChild` | 마지막 자식 요소 노드 | `HTMLElement` 상속객체
+`node.parentNode` | 부모 노드 | `Node` 상속객체
+`node.parentElement` | 부모 요소 노드 | `HTMLElement` 상속객체
+`node.previousSibling` | 자신 전의 형제 노드 | `Node` 상속객체
+`node.previousElementSibling` | 자신 전의 형제 요소 노드 | `HTMLElement` 상속객체
+`node.nextSibling` | 다음 형제 노드 | `Node` 상속객체
+`node.nextElementSibling` | 다음 형제 요소 노드 | `HTMLElement` 상속객체
 
 - 값이 존재하지 않는경우
   - 반환 형태가 콜렉션 : 빈 콜렉션 객체 반환
@@ -139,7 +139,7 @@
 
 메소드명 | 설명 | 반환 형태
 ------|------|----------
-`hasChildNodes()` | 자식 노드를 소유유무를 반환 | `boolean`
+`node.hasChildNodes()` | 자식 노드를 소유유무를 반환 | `boolean`
 
 ```html
 <!DOCTYPE html>
@@ -176,18 +176,80 @@
 `document.createComment(data)` | 인수값에 해당하는 값을 가지는 코멘트 노드 객체를 생성한다. | `Comment` 객체
 `node.cloneNode(deep)` | node에 해당하는 노드를 복제한다. deep은 자손복사 유무 설정 | `Node` 상속객체
 
-- DOM 노드 객체 삽입-삭제-수정 메소드
+- DOM 노드 객체 삽입-삭제-치환 메소드
 
 메소드명 | 설명
 --------|------
-`appendChild(node)` | 메소드가 실행되는 객체의 자식 요소로 `node`를 추가한다. 기존 자식 요소가 있을 경우 그 뒤에 추가된다.
-`insertBefore(newNode, existingNode)` | 메소드가 실행되는 객체의 자식 요소 중에 `existingNode` 바로 앞 위치에 `newNode`를 추가한다. `existingNode`가 `null`일 경우 가장 뒤에 추가된다.
-`insertAdjacentElement(position, element)` | 메소드가 실행되는 객체의 `position`에 해당하는 위치에 `element`를 추가한다.
-`removeChild(node)` | 메소드가 실행되는 객체의 자식 요소 중 `node`에 해당하는 요소를 삭제한다.
-`replaceChild(newNode, oldNode)` | 메소드가 실행되는 객체의 자식 요소 중 `oldNode`에 해당하는 요소를 `newNode`로 치환한다.
+`node.appendChild(node)` | 메소드가 실행되는 객체의 자식 요소로 `node`를 추가한다. 기존 자식 요소가 있을 경우 그 뒤에 추가된다.
+`element.setAttributeNode(attributeNode)` | 메소드가 실행되는 객체에 `attributeNode`를 속성으로 추가한다.
+`node.insertBefore(newNode, existingNode)` | 메소드가 실행되는 객체의 자식 요소 중에 `existingNode` 바로 앞 위치에 `newNode`를 추가한다. `existingNode`가 `null`일 경우 가장 뒤에 추가된다.
+`node.insertAdjacentElement(position, element)` | 메소드가 실행되는 객체의 `position`('beforebegin', 'afterbegin', 'beforeend', 'afterend')에 해당하는 위치에 `element`를 추가한다.
+`element.remove()` | 메소드가 실행되는 객체를 트리에서 삭제한다. (실험적 메소드)
+`node.removeChild(node)` | 메소드가 실행되는 객체의 자식 요소 중 `node`에 해당하는 요소를 삭제한다.
+`node.replaceChild(newNode, oldNode)` | 메소드가 실행되는 객체의 자식 요소 중 `oldNode`에 해당하는 요소를 `newNode`로 치환한다.
 
 ```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of DOM exploration</title>
+</head>
+<body>
+</body>
+<script>
+  //DOM 객체 생성
+  //document.createElement(tagName)
+  var divTag = document.createElement('div');
+  var pTag = document.createElement('p');
 
+  //document.createAttribute(attributeName)
+  var classAttr = document.createAttribute('class');
+  classAttr.nodeValue = 'div-class';
+
+  //document.createComment(data)
+  var commentNode = document.createComment('This is CommentNode');
+  
+  //node.cloneNode(deep)
+  var pTag2 = pTag.cloneNode();
+  var pTag3 = pTag.cloneNode();
+
+  //document.createTextNode(data)
+  var textNode = document.createTextNode('This is TextNode');
+  var pTag2Text = document.createTextNode('This is ClonedNode!');
+  var pTag3Text = document.createTextNode('This is replacedNode!');
+
+
+  //DOM 객체 삽입
+  //node.appendChild(node)
+  document.body.appendChild(divTag);
+  pTag.appendChild(textNode);
+  divTag.appendChild(pTag);
+  divTag.appendChild(pTag2);
+  pTag2.appendChild(pTag2Text);
+  pTag3.appendChild(pTag3Text);
+  
+  //element.setAttributeNode(attributeNode)
+  divTag.setAttributeNode(classAttr);
+  
+  //node.insertAdjacentElement(position, element)
+  divTag.insertAdjacentElement('afterbegin', pTag);
+
+  //node.insertBefore(newNode, existingNode)
+  divTag.insertBefore(commentNode, pTag);
+
+  //DOM 객체 치환
+  //node.replaceChild(newNode, oldNode)
+  divTag.replaceChild(pTag3, pTag);
+
+  //DOM 객체 삭제
+  //node.removeChild(node)
+  divTag.removeChild(pTag2);
+
+  //element.remove()
+  pTag3.remove();
+</script>
+</html>
 ```
 
 ## 참고
