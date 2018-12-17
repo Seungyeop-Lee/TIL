@@ -139,7 +139,7 @@
 
 메소드명 | 설명 | 반환 형태
 ------|------|----------
-`node.hasChildNodes()` | 자식 노드를 소유유무를 반환 | `boolean`
+`node.hasChildNodes()` | 자식 노드의 소유 유무를 반환 | `boolean`
 
 ```html
 <!DOCTYPE html>
@@ -170,30 +170,31 @@
 
 메소드명 | 설명 | 반환 형태
 --------|------|----------
-`document.createElement(tagName)` | 인수값에 해당하는 태그의 요소 노드 객체를 생성한다. | `HTMLElement` 상속객체
-`document.createAttribute(attributeName)` | 인수값에 해당하는 값의 속성 노드 객체를 생성한다. | `Attr` 객체
-`document.createTextNode(data)` | 인수값에 해당하는 값을 가지는 텍스트 노드 객체를 생성한다. | `Text` 객체
-`document.createComment(data)` | 인수값에 해당하는 값을 가지는 코멘트 노드 객체를 생성한다. | `Comment` 객체
-`node.cloneNode(deep)` | node에 해당하는 노드를 복제한다. deep은 자손복사 유무 설정 | `Node` 상속객체
+`document.createElement(tagName)` | 인수 값에 해당하는 태그의 요소 노드 객체를 생성한다. | `HTMLElement` 상속객체
+`document.createAttribute(attributeName)` | 인수 값에 해당하는 값의 속성 노드 객체를 생성한다. | `Attr` 객체
+`document.createTextNode(data)` | 인수 값에 해당하는 값을 가지는 텍스트 노드 객체를 생성한다. | `Text` 객체
+`document.createComment(data)` | 인수 값에 해당하는 값을 가지는 코멘트 노드 객체를 생성한다. | `Comment` 객체
+`node.cloneNode(deep)` | `node`를 복제한다. `deep`은 자손복사 유무 설정(`boolean`) | `Node` 상속객체
 
 - DOM 노드 객체 삽입-삭제-치환 메소드
 
 메소드명 | 설명
 --------|------
-`node.appendChild(node)` | 메소드가 실행되는 객체의 자식 요소로 `node`를 추가한다. 기존 자식 요소가 있을 경우 그 뒤에 추가된다.
-`element.setAttributeNode(attributeNode)` | 메소드가 실행되는 객체에 `attributeNode`를 속성으로 추가한다.
-`node.insertBefore(newNode, existingNode)` | 메소드가 실행되는 객체의 자식 요소 중에 `existingNode` 바로 앞 위치에 `newNode`를 추가한다. `existingNode`가 `null`일 경우 가장 뒤에 추가된다.
-`node.insertAdjacentElement(position, element)` | 메소드가 실행되는 객체의 `position`('beforebegin', 'afterbegin', 'beforeend', 'afterend')에 해당하는 위치에 `element`를 추가한다.
-`element.remove()` | 메소드가 실행되는 객체를 트리에서 삭제한다. (실험적 메소드)
-`node.removeChild(node)` | 메소드가 실행되는 객체의 자식 요소 중 `node`에 해당하는 요소를 삭제한다.
-`node.replaceChild(newNode, oldNode)` | 메소드가 실행되는 객체의 자식 요소 중 `oldNode`에 해당하는 요소를 `newNode`로 치환한다.
+`node.appendChild(newNode)` | `node`의 자식 요소로 `newNode`를 추가한다. 기존 자식 요소가 있을 경우 그 뒤에 추가된다.
+`node.insertBefore(newNode, existingNode)` | `node`의 자식 요소 중에 `existingNode` 바로 앞 위치에 `newNode`를 추가한다. `existingNode`가 `null`일 경우 가장 뒤에 추가된다.
+`node.insertAdjacentElement(position, element)` | `node`의 `position`('beforebegin', 'afterbegin', 'beforeend', 'afterend')에 해당하는 위치에 `element`를 추가한다.
+`element.remove()` | `element`를 트리에서 삭제한다. (실험적 메소드)
+`node.removeChild(existingNode)` | `node`의 자식 요소 중 `existingNode`에 해당하는 요소를 삭제한다.
+`node.replaceChild(newNode, oldNode)` | `node`의 자식 요소 중 `oldNode`에 해당하는 요소를 `newNode`로 치환한다.
+
+- 속성 노드나 텍스트 노드 객체의 값을 확인하거나 수정 할 때는 `nodeValue` 속성을 이용한다.
 
 ```html
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Example of DOM exploration</title>
+  <title>Example of DOM HTML Object creation and handling</title>
 </head>
 <body>
 </body>
@@ -229,9 +230,6 @@
   pTag2.appendChild(pTag2Text);
   pTag3.appendChild(pTag3Text);
   
-  //element.setAttributeNode(attributeNode)
-  divTag.setAttributeNode(classAttr);
-  
   //node.insertAdjacentElement(position, element)
   divTag.insertAdjacentElement('afterbegin', pTag);
 
@@ -252,7 +250,64 @@
 </html>
 ```
 
+- 속성 노드 관련 메소드 및 속성
+
+메소드명 | 설명 | 반환 형태
+--------|------|---------
+`element.className` | `element`의 class이름을 반환 | 문자열
+`element.id` | `element`의 id를 반환 | 문자열
+`node.hasAttributes()` | `node`의 속성 소유 유무를 반환 | `boolean`
+`element.getAttributeNode(attributeName)` | `element`가 가지고 있는 `attributeName`와 동일한 이름의 속성 노드 객체를 반환 | `Attr` 객체
+`element.setAttributeNode(attributeNode)` | `element`에 `attributeNode`를 속성으로 추가한다. | 없음
+`element.removeAttributeNode(attributeNode)` | `element`가 가지고 있는 `attributeNode`와 동일한 이름의 속성 노드 객체를 삭제 후 반환 | `Attr` 객체
+
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of DOM Attribution Object</title>
+</head>
+<body>
+  <p class="pTagClass" id="pTagId"></p>
+</body>
+<script>
+var pTag = document.getElementById('pTagId');
+
+//element.className
+console.log(pTag.className);  //pTagClass
+
+//element.id
+console.log(pTag.id); //pTagId
+
+//node.hasAttributes()
+console.log(pTag.hasAttributes());  //true
+
+//element.getAttributeNode(attributeName)
+var pTagClassAttr = pTag.getAttributeNode('class');
+
+var clonePTagClassAttr = pTagClassAttr.cloneNode(true);
+clonePTagClassAttr.nodeValue = 'clonePTagClass';
+
+//element.setAttributeNode(attributeNode)
+pTag.setAttributeNode(clonePTagClassAttr);
+console.log(pTag.className);  //clonePTagClass
+
+//element.removeAttributeNode(attributeNode)
+var removedAttr = pTag.removeAttributeNode(clonePTagClassAttr);
+console.log(removedAttr.nodeValue); //clonePTagClass
+console.log(pTag.className);  //(빈 문자열)
+</script>
+</html>
+```
+
+### HTML 구문 직접 삽입-삭제
+- HTML 구문 직접 접근 메소드 및 속성
+
+
 ## 참고
 - [jsperf : element node search speed test](https://jsperf.com/element-node-search-speed-test)
 - [PoiemaWeb : JavaScript > 문서 객체 모델(Document Object Model)](https://poiemaweb.com/js-dom)
 - [MDN web docs : Web technology for developers > Web APIs > Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+- [w3schools.com : The HTML DOM Element Object](https://www.w3schools.com/jsref/dom_obj_all.asp)
