@@ -352,7 +352,7 @@ console.log(pTag.className);  //(빈 문자열)
 -----------------|------|---------
 `element.innerHTML` | `element` 태그 내부의 HTML구문을 반환한다. 변경가능 하다. | 문자열
 `element.outerHTML` | `element` 태그를 포함한 HTML구문을 반환한다. 변경가능 하다. | 문자열
-`element.insertAdjacentHTML(position, text)` | `element`의 `position`('beforebegin', 'afterbegin', 'beforeend', 'afterend')에 해당하는 위치에 `text`를 HTML구문으로서 추가한다.
+`element.insertAdjacentHTML (position, text)` | `element`의 `position`('beforebegin', 'afterbegin', 'beforeend', 'afterend')에 해당하는 위치에 `text`를 HTML구문으로서 추가한다. | 없음
 
 ```html
 <!DOCTYPE html>
