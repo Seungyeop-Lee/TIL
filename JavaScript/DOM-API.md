@@ -382,13 +382,6 @@ console.log(divTag.outerHTML); //<div id="divTag">Additional context | div tag c
 </html>
 ```
 
-## 스타일 속성 (Style Property)
-
-- 스타일 속성을 이용하면 inline style의 삽입 및 조작이 가능하다.
-- `window.getComputedStyle(element).getPropertyValue(prop)`로 `element`가 가지고 있는 스타일 속성 중 `prop`과 동일한 이름을 가진 값을 확인 할 수 있다.
-- 스타일 속성에 접근 시 `.`접근자 이용이 가능하다. 단, 속성명의 `-`에 해당하는 부분을 무시하고, 대신 `-`뒤에 영문자하나를 대분자로 변경한 이름으로 접근 가능하다.
-- 스타일 속성에 `.cssText`속성을 이용하면 적용된 CSS구문을 확인 가능하며, 변경이 가능하기 때문에 CSS구문을 직접 삽입도 가능하다.
-
 ## 참고
 - [jsperf : element node search speed test](https://jsperf.com/element-node-search-speed-test)
 - [PoiemaWeb : JavaScript > 문서 객체 모델(Document Object Model)](https://poiemaweb.com/js-dom)
