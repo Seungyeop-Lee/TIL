@@ -16,4 +16,4 @@
 **Fig1. 스레드에 따른 동기 및 비동기 처리**
 
 ## 참고
-![stackoverflow : Asynchronous vs synchronous execution, what does it really mean?](https://stackoverflow.com/questions/748175/asynchronous-vs-synchronous-execution-what-does-it-really-mean)
+[stackoverflow : Asynchronous vs synchronous execution, what does it really mean?](https://stackoverflow.com/questions/748175/asynchronous-vs-synchronous-execution-what-does-it-really-mean)
