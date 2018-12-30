@@ -52,7 +52,7 @@ multipart | 두 개 이상의 MIME-type으로 이루어진 타입, 일반적으�
 ----|-----------------------------
 `body` | request의 body에 쓰여질 데이터, 기본값은 null, Http Request method가 GET이나 HEAD처럼 body를 사용하지 않는 method가 설정되 있는 경우는 값이 있어도 null로 치환되어 실행된다.
 
-- *`open`메소드의 인수인 `async`값에 따른 실행차이*
+- *`open`메소드의 인수인 `async`값에 따른 `send`메소드  실행차이*
   
 `async` | 실행거동
 --------|---------
@@ -77,7 +77,122 @@ function pullDataFromServer(reqInfo) {
 }
 ```
 
+### 수신 처리 방법
+- 등록해 놓은 콜백함수가 서버로부터 응답을 받았을 때 실행된다.
+- 콜백함수는 `onreadystatechange`나 `onload`, `addEventListener`메소드 중에 하나를 이용해 설정한다.
+- 서버에서 수신받은 response의 body값은 `XMLHttpRequest.response` 또는 `XMLHttpRequest.responseText`로 읽어올 수 있다.
+- 물리적 장애로인한 예외 발생 처리를 위해 try/catch문 사용이 권장된다.
 
+#### `onreadystatechange`
+- XMLHttpRequest.readyState의 값이 변경 될 경우 등록되어 있는 콜백함수가 실행된다.
+
+- *XMLHttpRequest.readyState 일람*
+
+값 | 상태 | 설명
+---|-----|------
+0 | UNSENT | request는 생성되었으나 초기화 전 상태 (`open`메소드 실행 전)
+1 | OPENED | request 초기화 완료 (`open`메소드 실행 후)
+2 | HEADERS_RECEIVED | 서버로 request 송신 완료 후 response의 status와 header 확인 가능
+3 | LOADING | response의 body 수신 중
+4 | DONE | response의 수신 완료 후 서버와의 통신 종료
+
+- reponse 수신 완료 후 동작을 위해, 콜백함수 안에서 `readyState`를 확인하는 분기문이 필요하다.
+- XMLHttpRequest 객체를 지원하는 모든 브라우저에서 사용가능하다.
+
+```javascript
+function pullDataFromServer(reqInfo) {
+
+  var xhReq = new XMLHttpRequest();
+
+  //onreadystatechange에 response 수신시 처리 함수를 설정
+  xhReq.onreadystatechange = function() {
+    
+    //서버수신이 완료됨을 확인
+    if(xhReq.readyState === xhr.DONE) {
+      
+      //response의 status가 200(정상)임을 확인
+      if(xhReq.status === 200) {
+        
+        //서버에서 수신받은 response의 body데이터를 읽어서 출력
+        console.log(xhReq.response);
+        console.log(xhReq.responseText);
+      }
+    }
+  }
+
+  xhReq.open('POST', reqInfo.url, reqInfo.async);
+  xhReq.setRequestHeader('Content-type', reqInfo.contentType);
+  xhReq.send(reqInfo.body);
+
+}
+```
+
+#### try/catch
+- 통신에러 이벤트(ex. 서버다운)가 발생 할 경우, `XMLHttpRequest.readyState`의 값에 접근 할 때, onreadystatechange 메소드 안에서 예외가 발생한다. 예외 발생 시 실행 중단상황을 방지하기 위해 `readyState`값 판단분기문을 try/catch로 감싸는 걸 권장한다.
+
+```javascript
+function pullDataFromServer(reqInfo) {
+
+  var xhReq = new XMLHttpRequest();
+
+  xhReq.onreadystatechange = function() {
+    
+    //통신에러를 대비해 try/catch문 적용
+    try {
+      if(xhReq.readyState === xhr.DONE) {
+        if(xhReq.status === 200) {
+          console.log(xhReq.response);
+          console.log(xhReq.responseText);
+        }
+      }
+    } catch(e) {
+      alert('exeption: ' + e.description);
+    }
+  }
+
+  xhReq.open('POST', reqInfo.url, reqInfo.async);
+  xhReq.setRequestHeader('Content-type', reqInfo.contentType);
+  xhReq.send(reqInfo.body);
+
+}
+```
+
+#### `onload`, `addEventListener`메소드
+- response의 수신이 완료되었을 경우 실행 될 콜백함수의 설정은 `addEventListener`메소드로도 가능하다.
+
+구문 | `XMLHttpRequest.addEventListener('load', callback)`
+-----|-------------------------------------------------
+`'load'` | XMLHttpRequest.readyState의 값이 4(`XMLHttpRequest.DONE`)인 경우를 명시
+`callback` | 실행 될 콜백함수, 콜백함수 내에서 `this`를 사용하면 `XMLHttpRequest`객체에 접근가능
+
+- `addEventListener`메소드를 이용하지 않고, `onload`에 콜백함수를 설정 함으로서 같은 동작을 기대할 수 있다.
+- response수신이 완료 된 후, 콜백함수가 실행되므로, 콜백함수 안에서 `readyState`의 값에 따른 분기문이 필요가 없다.
+- `onreadystatechange`에 비해 사용가능 브라우저 범위가 좁다.
+
+```javascript
+function pullDataFromServer(reqInfo) {
+
+  var xhReq = new XMLHttpRequest();
+
+  //서버수신이 완료되었을 경우 실행되는 함수설정
+  xhReq.addEventListener('load', function() {
+
+    //서버수신 완료 유무를 확인할 필요가 없음
+
+    if(xhReq.status === 200) {
+      console.log(xhReq.response);
+      console.log(xhReq.responseText);
+    }
+  });
+
+  //onload는 onreadystatechange과 사용방법이 같으므로 생략
+
+  xhReq.open('POST', reqInfo.url, reqInfo.async);
+  xhReq.setRequestHeader('Content-type', reqInfo.contentType);
+  xhReq.send(reqInfo.body);
+
+}
+```
 
 ## 참고
 - [PoiemaWeb : JavaScript > 비동기식 처리 모델과 Ajax](https://poiemaweb.com/js-ajax)
