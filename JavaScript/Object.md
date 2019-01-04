@@ -5,7 +5,7 @@
 ## 생성
 - `{}` 객체 리터럴 : 내부적으로는 생성자 함수를 사용하여 객체 생성한다.
 - `new Object()` : new 연산자와 Object 생성자 함수를 이용하여 객체 생성한다.
-- `new function \[name\](\[parameter\]){\[Running construction\]}` : new 연산자와 선언 한 생성자 함수를 이용하여 객체 생성한다.
+- `new function [name]([parameter]){[Running construction]}` : new 연산자와 선언 한 생성자 함수를 이용하여 객체 생성한다.
 - 프로퍼티(Property)
   - 키(Key)와 값(Value)으로 구성, 키 및 값은 어떤 데이터로든 설정 가능하다. (원시타입 및 객체 모두 OK)
   - 객체 리터럴에서의 키는 원시타입만 가능하다.
