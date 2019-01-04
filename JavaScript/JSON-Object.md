@@ -1,7 +1,7 @@
 # JSON Object
 - JSON 문자열을 분석하여 객체로 만드는 메소드(`parse`)와 객체를 JSON 문자열로 변환하는 메소드(`stringify`)를 가진 객체이다.
 
-## `JSON.parse` 메소드
+## `JSON.parse()`
 - 문자열을 JSON으로서 분석하여 객체를 만들어 반환한다.
 - 문자열이 유효한 JSON형식이 아닐경우 `SyntaxError` 예외가 발생한다.
 
@@ -55,7 +55,7 @@ var jsonStr = '{"a" : 1, }';
 var jsonObj = JSON.parse(jsonStr);  //SyntaxError: Unexpected token } in JSON at position 10
 ```
 
-## `JSON.stringify` 메소드
+## `JSON.stringify()`
 - 인수로 설정된 객체를 JSON문자열로 변환하여 반환한다.
 - 객체분석 시 `undefined`, 함수, 심볼이 포함되어 있는 속성은 변환 대상에서 제외된다.
 - `enumerable`이 false인 속성은 변환 대상에서 제외된다.
