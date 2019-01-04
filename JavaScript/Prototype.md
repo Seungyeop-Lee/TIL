@@ -1,5 +1,5 @@
 # 프로토타입 (Prototype)
-- 모든 자바 스크립트 객체들은 프로토타입으로부터 속성과 메소드를 상속받는다. 예를 들어, `Array`객체는 `Array.prototype`으로부터 상속받으며, `Element`객체는 `Element.prototype`으로부터 상속받는다.
+- 모든 자바스크립트 객체들은 프로토타입으로부터 속성과 메소드를 상속받는다. 예를 들어, `Array`객체는 `Array.prototype`으로부터 상속받으며, `Element`객체는 `Element.prototype`으로부터 상속받는다.
 - `Object.prototype`은 모든 프로토타입 상속 체인의 최상위에 위치하고 있다. 그렇기 때문에 `Array`객체나 `Element`객체 전부 `Object.prototype`으로부터 속성과 메소드를 상속받는다.
 - 상속받은 프로토타입은 객체의 `__proto__`로 접근 가능하다. (부모객체가 존재하지 않을 경우 `undefined`)
 - 객체의 `__proto__`에 접근 할 경우 내부적으로는 `Object.getPrototypeOf()`가 호출되어 프로토타입 객체가 반환된다. (직접 `Object.getPrototypeOf()`를 사용 하였을 때, 대상객체의 부모객체가 존재하지 않을 경우 `null`을 반환)
