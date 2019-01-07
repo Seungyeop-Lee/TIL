@@ -22,7 +22,20 @@
 반환값 | `thisArg`를 `this`로, `argsArray`에 저장된 값을 인수로 설정하여 `function`을 실행한 결과
 
 ```javascript
-//TODO 예제 코드
+function testFunc(c) {
+  return this.a + this.b + c;
+}
+
+thisArg = {
+  a : 10,
+  b : 20
+}
+
+var callResult = testFunc.call(thisArg, 30);
+console.log(callResult);  //60
+
+var applyResult = testFunc.apply(thisArg, [40]);
+console.log(applyResult); //70
 ```
 
 ## `bind`메소드
@@ -35,14 +48,44 @@
 반환값 | `thisArg`를 `this`로 바인딩한 함수
 
 ```javascript
-//TODO 예제 코드
+function testFunc(c) {
+  return this.a + this.b + c;
+}
+
+thisArg = {
+  a : 10,
+  b : 20
+}
+
+var bindFunc = testFunc.bind(thisArg, 50);
+var bindResult = bindFunc();
+console.log(bindResult);  //80
 ```
 
 ## `bind`메소드 vs. `call`&`apply`메소드
 - `bind`메소드가 적용된 함수를 `call`이나 `apply`메소드를 통해 실행하였을 경우 `bind`메소드를 이용해 설정한 `this`가 적용된다. (`call`과 `apply`메소드에서 설정한 `this`는 무시된다.)
 
 ```javascript
-//TODO 예제 코드
+function testFunc(c) {
+  return this.a + this.b + c;
+}
+
+thisForBind = {
+  a : 1,
+  b : 2
+}
+
+thisForCallOrApply = {
+  a : 10,
+  b : 20
+}
+
+var bindFunc = testFunc.bind(thisForBind);
+var callResult = bindFunc.call(thisForCallOrApply, 30);
+console.log(callResult); //33
+
+var applyResult = bindFunc.apply(thisForCallOrApply, [30]);
+console.log(applyResult); //33
 ```
 
 ## 참고
