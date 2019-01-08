@@ -2,6 +2,7 @@
 - `typeof`키워드, `Object.prototype.toString.call()`, `instanceof`키워드, `function.prototype.constructor`값 비교를 이용하여 type check가 가능하다.
 
 *각 type check 방법의 특징과 단점*
+
 type check 방법 | 특징 | 단점
 ---------------|------|-------
 `typeof`키워드 | primitive 타입과 객체의 구별이 가능하다. | 객체에 대해서는 자세한 구별이 불가
@@ -16,6 +17,7 @@ type check 방법 | 특징 | 단점
 반환값 | 타입에 따른 문자열
 
 *`operand`에 따른 반환값 일람*
+
 type | 반환값
 -----|-------
 undefined | "undefined"
@@ -45,6 +47,7 @@ object | "object"
 ```
 
 ## `instanceof`키워드
+
 구문 | `object instanceof construtor`
 ----|--------------------------------
 `object` | 확인 할 객체
