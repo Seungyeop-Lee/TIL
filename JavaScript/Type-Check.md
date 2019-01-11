@@ -29,7 +29,21 @@ function | "function"
 object | "object"
 
 ```javascript
-//TODO 예제코드 작성
+var undefinedVar = undefined;
+var nullVar = null;
+var booleanVar = true;
+var numberVar = 0;
+var stringVar = '';
+var functionVar = function(){};
+var objectVar = {};
+
+console.log(typeof undefinedVar); //undefined
+console.log(typeof nullVar);  //object
+console.log(typeof booleanVar); //boolean
+console.log(typeof numberVar);  //number
+console.log(typeof stringVar);  //string
+console.log(typeof functionVar);  //function
+console.log(typeof objectVar);  //object
 ```
 
 ## `Object.prototype.toString.call()`
@@ -43,7 +57,32 @@ object | "object"
 반환값 | 객체의 [[Class]] 내부 속성의 값을 포함한 문자열
 
 ```javascript
-//TODO 예제코드 작성
+var toStringFunc = Object.prototype.toString;
+
+var undefinedVar = undefined;
+var nullVar = null;
+var booleanVar = true;
+var numberVar = 0;
+var stringVar = '';
+var functionVar = function(){};
+var arrayVar = [];
+var objectVar = {};
+
+console.log(toStringFunc.call(undefinedVar)); //[object Undefined]
+console.log(toStringFunc.call(nullVar));  //[object Null]
+console.log(toStringFunc.call(booleanVar)); //[object Boolean]
+console.log(toStringFunc.call(numberVar));  //[object Number]
+console.log(toStringFunc.call(stringVar));  //[object String]
+console.log(toStringFunc.call(functionVar));  //[object Function]
+console.log(toStringFunc.call(arrayVar)); //[object Array]
+console.log(toStringFunc.call(objectVar));  //[object Object]
+
+console.log(toStringFunc.call(JSON)); //[object JSON]
+console.log(toStringFunc.call(Math)); //[object Math]
+
+function ObjConstructor() {}
+var objByConstructor = new ObjConstructor();
+console.log(toStringFunc.call(objByConstructor));  //[object Object]
 ```
 
 ## `instanceof`키워드
@@ -55,7 +94,20 @@ object | "object"
 반환값 | `object`의 속성 중 `constructor.prototype`가 존재하면 `true`, 그렇지 않으면 `false`를 반환한다. `object`의 prototype(`__proto__`)내부에 prototype이 존재하는 경우(상속한 경우), 그 prototype도 확인 대상이 된다. (재귀적)
 
 ```javascript
-//TODO 예제코드 작성
+function Parent() {}
+function Child1() {
+  Object.setPrototypeOf(Child1.prototype, Parent.prototype);
+}
+function Child2() {
+  Object.setPrototypeOf(Child2.prototype, Parent.prototype);
+}
+
+var child1 = new Child1();
+var child2 = new Child2();
+
+console.log(child1 instanceof Parent);  //true
+console.log(child1 instanceof Object);  //true
+console.log(child1 instanceof Child2);  //false
 ```
 
 ## `function.prototype.constructor`값 비교
@@ -63,7 +115,13 @@ object | "object"
 - 이것을 이용하면 type check가 가능하다.
 
 ```javascript
-//TODO 예제코드 작성
+function Obj() {}
+
+var obj = new Obj();
+var objProto = Object.getPrototypeOf(obj);
+var objCons = objProto.constructor;
+
+console.log(objCons === Obj); //true
 ```
 
 ## 참고
