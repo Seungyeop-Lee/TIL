@@ -12,7 +12,7 @@
 반환값 | JSON문자열을 분석하여 만든 객체
 
 ```javascript
-var jsonStr = '{"a" : 1}';
+var jsonStr = '{"a": 1}';
 
 var jsonObj = JSON.parse(jsonStr);
 console.log(jsonObj); //Object {a: 1}
@@ -25,7 +25,7 @@ console.log(jsonObj); //Object {a: 1}
 - `reviver`에 설정된 함수는 JSON문자열의 키의 갯수 + 1번 반복되어 실행된다. (JSON의 속성 + "" : 반환 객체)
 - `{"" : 반환 객체}`페어가 `this`로 설정될 때 (`reviver`설정 함수가 마지막으로 호출될 때) return값으로 설정한 값이 최종적으로 반환되는 값이 된다.
 ```javascript
-var jsonStr = '{"a" : 1}';
+var jsonStr = '{"a": 1}';
 var reviverFunc = function(key, value) {
   if(key !== "") {
     console.log(key); //a
@@ -48,10 +48,10 @@ console.log(jsonObj); //Object {a: 11}
 - JSON 문자열에서는 배열이나 객체의 값의 마지막에 콤마(,)가 들어가 있을 경우 예외가 발생한다. (자바스크립트의 배열, 객체의 문법에서는 허용)
 
 ```javascript
-var obj = {"a" : 1, };
+var obj = {"a": 1, };
 console.log(obj); //Object {a: 1}
 
-var jsonStr = '{"a" : 1, }';
+var jsonStr = '{"a": 1, }';
 var jsonObj = JSON.parse(jsonStr);  //SyntaxError: Unexpected token } in JSON at position 10
 ```
 
@@ -68,7 +68,7 @@ var jsonObj = JSON.parse(jsonStr);  //SyntaxError: Unexpected token } in JSON at
 반환값 | 객체를 분석하여 변환한 JSON문자열
 
 ```javascript
-var obj = {"a" : 1};
+var obj = {"a": 1};
 
 var jsonStr1 = JSON.stringify(obj);
 console.log(jsonStr1);  //{"a":1}
@@ -101,7 +101,7 @@ console.log(jsonStr3);
 - `{"" : 변환 대상 객체}`페어가 `this`로 설정될 때 (`replacer`설정 함수가 처음으로 호출될 때) return값으로 설정한 값이 변환 대상 객체로 설정된다.
 
 ```javascript
-var obj = {"a" : 1};
+var obj = {"a": 1};
 var replacerFunc = function(key, value) {
   if(key === "") {
     console.log(key); //(빈 문자열)
@@ -132,7 +132,7 @@ undefined | 해당하는 속성은 변환 대상에서 제외된다.
 - 배열의 값에 해당하는 키를 가지고 있는 속성만이 JSON문자열 변환 대상이 된다.
 
 ```javascript
-var obj = {"a" : 1, "b" : 2, "c" : 3};
+var obj = {"a": 1, "b": 2, "c": 3};
 var replacerArr = ["b"];
 
 var jsonStr = JSON.stringify(obj, replacerArr);
@@ -160,7 +160,7 @@ var obj = {
     return this;
   }
 };
-var inObj = {"a" : obj};
+var inObj = {"a": obj};
 var inArr = [obj];
 
 console.log(JSON.stringify(inObj));  //{"a":{"param":"a"}}

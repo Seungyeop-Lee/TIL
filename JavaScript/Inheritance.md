@@ -33,8 +33,8 @@ console.log(student instanceof Human);  //true
 ## 객체 리터럴의 상속
 ```javascript
 var parentObj = {
-  var1 : 10,
-  var2 : 20
+  var1: 10,
+  var2: 20
 }
 
 var childObj = Object.create(parentObj);

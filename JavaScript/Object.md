@@ -15,18 +15,18 @@
 ```JavaScript
 //{} 객체 리터럴 사용
 var obj1 = {
-  1 : 'numToStr',
-  true : 'boolToStr',
-  'string' : 'strToStr',
-  null : 'nullToStr',
-  undefined : 'undefinedToStr',
+  1: 'numToStr',
+  true: 'boolToStr',
+  'string': 'strToStr',
+  null: 'nullToStr',
+  undefined: 'undefinedToStr',
   
-  strToNum : 200,
-  strToBool : true,
-  strToStr : 'string',
-  strToNull : null,
-  strToUndefined : undefined,
-  strToObj : new Object()
+  strToNum: 200,
+  strToBool: true,
+  strToStr: 'string',
+  strToNull: null,
+  strToUndefined: undefined,
+  strToObj: new Object()
 };
 
 var obj1Array = [];

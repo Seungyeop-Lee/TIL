@@ -50,12 +50,12 @@ objFromFunc.print();  //print!!
 ```javascript
 function func() {}
 func.prototype = {
-  state : 'before'
+  state: 'before'
 }
 var objBefore = new func();
 
 func.prototype = {
-  state : 'after'
+  state: 'after'
 }
 var objAfter = new func();
 

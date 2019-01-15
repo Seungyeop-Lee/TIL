@@ -9,7 +9,7 @@ function printThis() {
 }
 
 var tempThis = {
-  message : "this is this"
+  message: "this is this"
 }
 
 var newPrintThis = printThis.bind(tempThis);
@@ -55,7 +55,7 @@ printThis2(); //true
 
 ```javascript
 var obj = {
-  returnThis : function(){
+  returnThis: function(){
     return this;
   }
 }

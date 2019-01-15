@@ -27,8 +27,8 @@ function testFunc(c) {
 }
 
 thisArg = {
-  a : 10,
-  b : 20
+  a: 10,
+  b: 20
 }
 
 var callResult = testFunc.call(thisArg, 30);
@@ -53,8 +53,8 @@ function testFunc(c) {
 }
 
 thisArg = {
-  a : 10,
-  b : 20
+  a: 10,
+  b: 20
 }
 
 var bindFunc = testFunc.bind(thisArg, 50);
@@ -71,13 +71,13 @@ function testFunc(c) {
 }
 
 thisForBind = {
-  a : 1,
-  b : 2
+  a: 1,
+  b: 2
 }
 
 thisForCallOrApply = {
-  a : 10,
-  b : 20
+  a: 10,
+  b: 20
 }
 
 var bindFunc = testFunc.bind(thisForBind);
