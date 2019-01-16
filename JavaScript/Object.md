@@ -9,9 +9,9 @@
 - 프로퍼티(Property)
   - 키(Key)와 값(Value)으로 구성, 키 및 값은 어떤 데이터로든 설정 가능하다. (원시타입 및 객체 모두 OK)
   - 객체 리터럴에서의 키는 원시타입만 가능하다.
-  - 객체 리터럴에서는 `키 : 값` 형태로 설정한다.
+  - 객체 리터럴에서는 `키: 값` 형태로 설정한다.
   - 생성자 함수에서는 `this.키 = 값` or `this[키] = 값` 형태로 설정한다.
-  - `키 : 값`나 `this.키 = 값`일 경우 키는 문자열로 자동변환되어 설정된다.
+  - `키: 값`나 `this.키 = 값`일 경우 키는 문자열로 자동변환되어 설정된다.
 ```JavaScript
 //{} 객체 리터럴 사용
 var obj1 = {
@@ -112,6 +112,13 @@ console.log(obj.key);  //not value
 delete obj.key;
 console.log(obj.key);  //undefined
 ```
+
+## 속성 기술자(Property Descriptors)
+- 객체를 구성하고 있는 속성의 구체적 내용을 기술 한 것이다. (속성 변경가능 유무, 삭제가능 유무 등)
+- 데이터 기술자(Data Descriptors)와 접근자 기술자(Accessor Descriptors)의 두 가지 유형으로 나뉘어진다.
+- 객체로 표현되며, 유형과 상관없이 가지고 있는 키와 유형에 따라 가질 수 있는 키가 존재한다.
+- `Object.defineProperty()`메소드를 이용하여 속성 기술자를 정의 및 재정의 할 수 있으며, `Object.getOwnPropertyDescriptor()`메소드를 이용하여 속성의 속성 기술자를 얻을 수 있다.
+
 
 ## 객체분류
 - Built-in Object
