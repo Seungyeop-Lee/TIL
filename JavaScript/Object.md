@@ -119,6 +119,50 @@ console.log(obj.key);  //undefined
 - 객체로 표현되며, 유형과 상관없이 가지고 있는 키와 유형에 따라 가질 수 있는 키가 존재한다.
 - `Object.defineProperty()`메소드를 이용하여 속성 기술자를 정의 및 재정의 할 수 있으며, `Object.getOwnPropertyDescriptor()`메소드를 이용하여 속성의 속성 기술자를 얻을 수 있다.
 
+### 유형에 상관없이 가지는 키
+- `configurable`
+  - `true`인 경우 기술자의 유형 변경, 기술자에 대응하는 속성의 삭제가 가능하다.
+  - `false`인 경우 속성 기술자 재정의가 불가하다.
+- `enumerable`
+  - `true`인 경우 대응하는 속성이 객체 열거시 열거 대상이 된다. (for-in문, `Object.key()`를 이용한 반복문의 대상이 됨)
+
+```javascript
+//TODO 예제코드 추가
+```
+
+### 데이터 기술자만 가지는 키
+- `value`
+  - 기술자에 대응하는 속성의 값이다.
+  - JavaScript의 유효한 데이터이여야 한다. (primitive type, object, function)
+- `writable`
+  - `true`인 경우 대입연산자(`=`)를 통해 `value` 값의 변경이 가능하다.
+
+```javascript
+//TODO 예제코드 추가
+```
+
+### 접근 기술자만 가지는 키
+- `get`
+  - 속성의 getter에 해당하는 함수이다.
+  - 속성에 접근할 때 `get`에 설정되어 있는 함수가 인수 값이 없는 상태로 실행된다.
+- `set`
+  - 속성의 setter에 해당하는 함수이다.
+  - 대입연산자(`=`)로 값을 할당 할 경우, 할당 된 값을 인수로하여 `set`에 설정되어 있는 함수가 실행된다.
+
+```javascript
+//TODO 예제코드 추가
+```
+
+### 속성 설정 방법에 따른 속성 기술자의 초기치
+
+키 | 대입 연산자를 통한 속성 정의 | `Object.defineProperty()`를 통한 속성 정의
+---|----------------------------|-------------------------------------------
+`configurable` | `true` | `false`
+`enumerable` | `true` | `false`
+`value` | `undefined` | `undefined`
+`writable` | `true` | `false`
+`get` | - (데이터 기술자로 정의 됨) | `undefined`
+`set` | - (데이터 기술자로 정의 됨) | `undefined`
 
 ## 객체분류
 - Built-in Object
@@ -144,3 +188,4 @@ console.log(Math.PI); //3.141592653589793
 ## 참고
 - [PoiemaWeb : JavaScript > 객체](https://poiemaweb.com/js-object)
 - [[부스트코스] 웹 프로그래밍 : 웹 애플리케이션 개발 1/4 > 자바스크립트 객체](https://www.edwith.org/boostcourse-web)
+- [MDN web docs : 開発者向けのウェブ技術 > JavaScript > JavaScript リファレンス > 標準ビルトインオブジェクト > Object > Object.defineProperty()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
