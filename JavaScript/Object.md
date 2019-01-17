@@ -127,7 +127,32 @@ console.log(obj.key);  //undefined
   - `true`인 경우 대응하는 속성이 객체 열거시 열거 대상이 된다. (for-in문, `Object.key()`를 이용한 반복문의 대상이 됨)
 
 ```javascript
-//TODO 예제코드 추가
+var obj = {
+  'a2': 1,
+  'b': 2
+};
+
+Object.defineProperty(obj, 'a2', {
+  configurable: true,
+  enumerable: true
+});
+
+Object.defineProperty(obj, 'b', {
+  configurable: false,
+  enumerable: false
+});
+
+for(key in obj) {
+  //enumerable이 true인 속성만 실행된다.
+  console.log(key + ": " + obj[key]);
+} //a2: 1
+
+delete obj.a2;
+delete obj.b;
+
+//configurable가 false이면 delete명령에도 속성이 삭제되지 않는다.
+console.log(obj.a2); //undefined
+console.log(obj.b); //2
 ```
 
 ### 데이터 기술자만 가지는 키
@@ -138,7 +163,24 @@ console.log(obj.key);  //undefined
   - `true`인 경우 대입연산자(`=`)를 통해 `value` 값의 변경이 가능하다.
 
 ```javascript
-//TODO 예제코드 추가
+var obj = {};
+
+Object.defineProperty(obj, 'a2', {
+  value: 1,
+  writable: true
+});
+
+Object.defineProperty(obj, 'b', {
+  value: 2,
+  writable: false
+});
+
+obj.a2 = 11;
+obj.b = 22;
+
+//writable가 false이면 대입연산자로 새로운 값을 설정해도 수정되지 않는다.
+console.log(obj.a2); //11
+console.log(obj.b); //2
 ```
 
 ### 접근 기술자만 가지는 키
@@ -150,7 +192,22 @@ console.log(obj.key);  //undefined
   - 대입연산자(`=`)로 값을 할당 할 경우, 할당 된 값을 인수로하여 `set`에 설정되어 있는 함수가 실행된다.
 
 ```javascript
-//TODO 예제코드 추가
+var obj = {};
+
+Object.defineProperty(obj, 'a2', {
+  get: function() {
+    console.log('a에 저장된 값을 반환합니다.');
+    return this.input;
+  },
+  set: function(input) {
+    this.input = input;
+    console.log(input + '가 a에 저장되었습니다.');
+  }
+});
+
+obj.a2 = 1;  //1가 a에 저장되었습니다.
+var aNum = obj.a2; //a에 저장된 값을 반환합니다.
+console.log(aNum);  //1
 ```
 
 ### 속성 설정 방법에 따른 속성 기술자의 초기치
@@ -159,10 +216,41 @@ console.log(obj.key);  //undefined
 ---|----------------------------|-------------------------------------------
 `configurable` | `true` | `false`
 `enumerable` | `true` | `false`
-`value` | `undefined` | `undefined`
+`value` | 초기화 값 | `undefined`
 `writable` | `true` | `false`
 `get` | - (데이터 기술자로 정의 됨) | `undefined`
 `set` | - (데이터 기술자로 정의 됨) | `undefined`
+
+```javascript
+var obj = {};
+
+//선언 후 초기화하지 않으면 속성이 정의되지 않는다.
+obj.a1;
+var pda1 = Object.getOwnPropertyDescriptor(obj, 'a1');
+console.log(pda1); //undefined
+
+obj.a2 = 1;
+var pda2 = Object.getOwnPropertyDescriptor(obj, 'a2');
+console.log(pda2); //{value: 1, writable: true, enumerable: true, configurable: true}
+
+
+//서술 기술자의 특정 유형을 나타내는 키가 없으면 데이터 기술자로 간주한다.
+Object.defineProperty(obj, 'b', {});
+var pdb = Object.getOwnPropertyDescriptor(obj, 'b');
+console.log(pdb); //{value: undefined, writable: false, enumerable: false, configurable: false}
+
+Object.defineProperty(obj, 'c1', {
+  get: function(){}
+});
+var pdc1 = Object.getOwnPropertyDescriptor(obj, 'c1');
+console.log(pdc1); //{get: ƒ, set: undefined, enumerable: false, configurable: false}
+
+Object.defineProperty(obj, 'c2', {
+  set: function(){}
+});
+var pdc2 = Object.getOwnPropertyDescriptor(obj, 'c2');
+console.log(pdc2); //{get: undefined, set: ƒ, enumerable: false, configurable: false}
+```
 
 ## 객체분류
 - Built-in Object
