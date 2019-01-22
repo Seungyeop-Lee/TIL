@@ -57,12 +57,65 @@ console.log(str[5]);  //undefined
 ```
 
 ### `String.prototype.charCodeAt()`
+- 인수로 설정된 인덱스에 있는 문자의 UTF-16코드를 반환한다.
+- 2자 이상의 UTF-16코드로 표현된 문자의 경우, 첫번째 UTF-16코드가 반환된다.
+
+구문 | `str.charCodeAt(index)`
+----|------------------------
+`index` | 문자열의 인덱스
+반환값 | 인덱스에 있는 문자의 UTF-16코드, 인덱스가 범위 밖이면 `NaN`
+
+```javascript
+var str = 'abcde';
+console.log(str.charCodeAt(4)); //101
+console.log(str.charCodeAt(5)); //NaN
+```
 
 ### `String.prototype.concat()`
+- 문자열과 문자열을 연결하여 새로운 문자열을 반환한다.
+
+구문 | `str.concat(string2[, string3, ..., stringN])`
+----|----------------------------------------------
+`string2[, string3, ..., stringN]` | `str`과 연결 할 문자열
+반환값 | `str`과 `string2[, string3, ..., stringN]`을 연결 한 문자열
+
+```javascript
+var str = 'a';
+var connectedStr = str.concat('b', 'c', 'd', 'e');
+console.log(connectedStr);  //abcde
+```
 
 ### `String.prototype.indexOf()`
+- 인수로 넣은 문자열과 동일한 문자열이 존재하는 인덱스를 반환한다.
+- 낮은 인덱스부터 검색한다. (`fromIndex` -> `str.length`)
+
+구문 | `str.indexOf(searchValue[, fromIndex])`
+----|---------------------------------------
+`searchValue` | 검색하려는 문자열, 빈 문자열인 경우 유효한 모든 인덱스에 일치 가능하다.
+`fromIndex` | 검색을 시작하는 인덱스, 초기치는 0, 0보다 작을 경우 0부터 `str.length`를 넘어설 경우 `str.length`부터 검색
+반환값 | `str`의 `fromIndex`인덱스 부터 `searchValue`이 처음 출현한 인덱스를 반환, 없으면 -1을 반환
+
+```javascript
+var str = 'aa';
+console.log(str.indexOf('a'));  //0
+console.log(str.indexOf('a', 1));  //1
+```
 
 ### `String.prototype.lastIndexOf()`
+- 인수로 넣은 문자열과 동일한 문자열이 존재하는 인덱스를 반환한다.
+- 높은 인덱스부터 검색한다. (`fromIndex` -> 0)
+
+구문 | `str.lastIndexOf(searchValue[, fromIndex])`
+----|---------------------------------------
+`searchValue` | 검색하려는 문자열, 빈 문자열인 경우 유효한 모든 인덱스에 일치 가능하다.
+`fromIndex` | 검색을 시작하는 인덱스, 초기치는 `+Infinity`, 0보다 작을 경우 0만 `str.length`를 넘어설 경우 `str.length`부터 검색
+반환값 | `str`의 `fromIndex`인덱스 부터 `searchValue`이 처음 출현한 인덱스를 반환, 없으면 -1을 반환
+
+```javascript
+var str = 'aa';
+console.log(str.lastIndexOf('a'));  //1
+console.log(str.lastIndexOf('a', 0));  //0
+```
 
 ### `String.prototype.localeCompare()`
 
