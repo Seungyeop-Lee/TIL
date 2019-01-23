@@ -18,7 +18,20 @@ console.log('after occur exception');
 - 예외가 발생 할 상황을 미리 판단하여, 예외를 발생 시키지 않게하는 방법이다.
 - 분기문(if문)을 사용하여 기본 예외 처리를 구현한다.
 ```javascript
-//TODO 예제코드 추가
+function execFunc(func) {
+  if(Object.prototype.toString.call(func) !== '[object Function]') {
+    return '실행 불가능 객체입니다.';
+  }
+  return func();
+}
+
+var obj = {};
+console.log(execFunc(obj));  //실행 불가능 객체입니다.
+
+var func = function() {
+  return '함수입니다.';
+}
+console.log((execFunc(func)));  //함수입니다.
 ```
 
 ### 고급
@@ -47,7 +60,23 @@ try {
 ```
 
 ```javascript
-//TODO 예제코드 추가
+function execFunc(func) {
+  try {
+    return func();
+  } catch(e) {
+    return '실행 불가능 객체입니다.';
+  } finally {
+    return 'finally문에서 반환값을 수정하였습니다!';
+  }
+}
+
+var obj = {};
+console.log(execFunc(obj));  //finally문에서 반환값을 수정하였습니다!
+
+var func = function() {
+  return '함수입니다.';
+}
+console.log((execFunc(func)));  //finally문에서 반환값을 수정하였습니다!
 ```
 
 ## 강제 예외 발생
@@ -58,7 +87,24 @@ try {
 `expression` | 발생한 예외의 정보를 나타내는 데이터. 자바스크립트에서 사용되는 모든 데이터 타입이 사용가능하다. try-catch로 예외처리 시 catch의 매개변수로 설정된다.
 
 ```javascript
-//TODO 예제코드 추가
+function execFunc(func) {
+  try {
+    if(Object.prototype.toString.call(func) !== '[object Function]') {
+      throw new TypeError('실행 불가능 객체입니다.');
+    }
+  } catch(e) {
+    return e.message;
+  }
+  return func();
+}
+
+var obj = {};
+console.log(execFunc(obj));  //실행 불가능 객체입니다.
+
+var func = function() {
+  return '함수입니다.';
+}
+console.log((execFunc(func)));  //함수입니다.
 ```
 
 ## 내장 에러 객체
@@ -78,14 +124,21 @@ try {
 `stack` | 에러 객체가 생성 된 위치의 call stack 정보
 
 ```javascript
-//TODO 예제코드 추가
+try {
+  throw new Error('message입니다.');
+} catch(e) {
+  console.log(e.name);    //Error
+  console.log(e.message); //message입니다.
+  console.log(e.stack);   //Error: message입니다.
+                          //at <anonymous>:2:9
+}
 ```
 
 ### `ReferenceError`
 - 존재하지 않는 변수나 함수 등이 참조될 때 발생하는 에러 객체이다.
 
 ```javascript
-//TODO 예제코드 추가
+notExistFunc(); //ReferenceError: notExistFunc is not defined
 ```
 
 ### `SyntaxError`
@@ -94,21 +147,22 @@ try {
 - `eval()`함수를 사용 할 경우에는 동적으로 구문을 파싱하므로 예외처리가 가능하다.
 
 ```javascript
-//TODO 예제코드 추가
+eval('a ==== 10');  //SyntaxError: Unexpected token =
 ```
 
 ### `TypeError`
 - 데이터가 기대하지 않은 형태인 경우 발생하는 에러 객체이다.
 
 ```javascript
-//TODO 예제코드 추가
+var obj = {};
+obj(); //TypeError: obj is not a function
 ```
 
 ### `RangeError`
 - 수치변수 및 인수가 유효범위 밖을 가리킬 경우 발생하는 에러 객체이다.
 
 ```javascript
-//TODO 예제코드 추가
+new Array(Number.MAX_VALUE);  //RangeError: Invalid array length
 ```
 
 ## 참고
