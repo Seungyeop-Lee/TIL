@@ -15,3 +15,4 @@
 190124 | 教材１のSection 3-1とSection 3-2を読む。
 190125 | 教材１のSection 3-3とSection 3-4を読む。
 190126 | 教材１のSection 4-0とSection 4-1を読む。
+190127 | 教材１のSection 4-2からSection 4-4まで読む。
