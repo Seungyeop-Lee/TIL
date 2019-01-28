@@ -11,10 +11,32 @@
 - 객체의 속성으로 존재하는 이벤트 핸들러 속성에 대입 연산자(`=`)를 이용하여 이벤트 핸들러를 설정한다.
 - 이벤트 핸들러 속성의 이름은 `on + 이벤트 종류`로 정해져 있다.
 - 이벤트 핸들러 속성에 `null`을 대입 할 경우 등록된 이벤트 핸들러가 제거된다.
-- 실행되는 이벤트 핸들러 내부의 `this`는 전역 객체(웹 브라우저에서는 `window`객체)를 가리킨다.
+- 실행되는 이벤트 핸들러 내부의 `this`는 해당 태그의 DOM객체를 가리킨다.
 
 ```html
-<!-- TODO 예제코드 작성 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of event handler property</title>
+</head>
+<body>
+  <input id="btn" type="button" value="button"/>
+</body>
+<script>
+  var handlerThis;
+  var btn = document.getElementById('btn');
+  btn.onclick = function() {
+    console.log('click!!!');
+    handlerThis = this;
+  }
+  btn.click();  //click!!!
+  console.log(handlerThis.toString());  //[object HTMLInputElement]
+
+  btn.onclick = null;
+  btn.click();  //(반응없음)
+</script>
+</html>
 ```
 
 ### 인라인 이벤트 모델
@@ -23,7 +45,24 @@
 - 실행되는 이벤트 핸들러 내부의 `this`는 해당 태그의 DOM객체를 가리킨다.
 
 ```html
-<!-- TODO 예제코드 작성 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of inline event attribution</title>
+</head>
+<body>
+  <input id="btn" type="button" value="button" onclick="console.log('click!!!'); handlerThis = this;"/>
+</body>
+<script>
+  var handlerThis;
+  btn.click();  //click!!!
+  console.log(handlerThis.toString());  //[object HTMLInputElement]
+
+  document.getElementById('btn').removeAttribute('onclick');
+  btn.click();  //(반응없음)
+</script>
+</html>
 ```
 
 ### 표준 이벤트 모델
@@ -45,7 +84,31 @@
 `useCapture` | 핸들러가 설정되었을 때의 `useCapture` 값, `type`과 `listener`에 해당하는 삭제 대상 핸들러가 있어도 `useCapture`의 값이 다를경우 제거되지 않는다.
 
 ```html
-<!-- TODO 예제코드 작성 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of standard event model</title>
+</head>
+<body>
+  <input id="btn" type="button" value="button"/>
+</body>
+<script>
+  var handlerThis;
+  var btn = document.getElementById('btn');
+  var handlerFunc = function() {
+    console.log('click!!!');
+    handlerThis = this;
+  };
+  
+  btn.addEventListener('click', handlerFunc);
+  btn.click();  //click!!!
+  console.log(handlerThis.toString()); //[object HTMLInputElement]
+
+  btn.removeEventListener('click', handlerFunc);
+  btn.click();  //(반응없음)
+</script>
+</html>
 ```
 
 ## 이벤트 전달
@@ -72,7 +135,57 @@ Graphical representation of an event dispatched in a DOM tree using the DOM even
 - 표준 이벤트 모델에서는 `useCapture`인수를 통해 이벤트 캡처링 방식으로 설정 가능하다.
 
 ```html
-<!--TODO 예제코드 작성-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of event bubbling and capturing</title>
+</head>
+<body id="body">
+  body
+  <div id="outsideDiv">
+    outside div
+    <div id="insideDiv">
+      inside div
+    </div>
+  </div>
+</body>
+<script>
+var body = document.getElementById('body');
+var outsideDiv = document.getElementById('outsideDiv');
+var insideDiv = document.getElementById('insideDiv');
+var handlerFunc = function(e) {
+  var eventPhase;
+  switch(e.eventPhase) {
+    case Event.CAPTURING_PHASE:
+      eventPhase = 'Capturing';
+      break;
+    case Event.AT_TARGET:
+      eventPhase = 'Target';
+      break;
+    case Event.BUBBLING_PHASE:
+      eventPhase = 'Bubbling';
+      break;
+  }
+  console.log(this.id + ' ---> ' + eventPhase);
+};
+
+body.addEventListener('click', handlerFunc, false);
+body.addEventListener('click', handlerFunc, true);
+outsideDiv.addEventListener('click', handlerFunc, false);
+outsideDiv.addEventListener('click', handlerFunc, true);
+insideDiv.addEventListener('click', handlerFunc);
+
+insideDiv.click();
+/*
+body ---> Capturing
+outsideDiv ---> Capturing
+insideDiv ---> Target
+outsideDiv ---> Bubbling
+body ---> Bubbling
+*/
+</script>
+</html>
 ```
 
 ## 이벤트 강제 발생
@@ -80,7 +193,36 @@ Graphical representation of an event dispatched in a DOM tree using the DOM even
 - 이벤트 강제 발생 대상이 `HTMLElement` 객체일 경우, `HTMLElement.click()`, `HTMLElement.blur()`, `HTMLElement.focus()`를 사용가능하다.
 
 ```html
-<!--TODO 예제코드 작성-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of event occurring</title>
+</head>
+<body>
+  <input id="textbox" type="text"/>
+</body>
+<script>
+  var textbox = document.getElementById('textbox');
+  textbox.onclick = function() {
+    console.log('click!!!');
+  }
+  textbox.onfocus = function() {
+    console.log('focus!!!');
+  }
+  textbox.onblur = function() {
+    console.log('blur!!!');
+  }
+
+  textbox.onclick();  //click!!!
+  textbox.onfocus();  //focus!!!
+  textbox.onblur();   //blur!!!
+
+  textbox.click();  //click!!!
+  textbox.focus();  //focus!!!
+  textbox.blur();   //blur!!!
+</script>
+</html>
 ```
 
 ## 참조
