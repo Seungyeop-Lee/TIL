@@ -18,7 +18,29 @@
 - 실행되고 있는 이벤트의 디폴트 이벤트 핸들러의 취소가능 여부를 `boolean`값으로 저장하고 있다.
 
 ```html
-<!-- 예제코드 작성 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of event information</title>
+</head>
+<body>
+  <input id="btn" type="button" value="button">
+</body>
+<script>
+  var btn = document.getElementById('btn');
+  btn.addEventListener('click', function(e) {
+    console.log('e.target.id : ' + e.target.id);
+    console.log('e.currentTarget.id : ' + e.currentTarget.id);
+    console.log('e.type : ' + e.type);
+    console.log('e.cancelable : ' + e.cancelable);
+  });
+  btn.click();  //e.target.id : btn
+                //e.currentTarget.id : btn
+                //e.type : click
+                //e.cancelable : true
+</script>
+</html>
 ```
 
 ## 이벤트 제어 관련
@@ -32,7 +54,55 @@
 - 디폴트 이젠트 핸들러의 실행은 억제하지 않는다.
 
 ```html
-<!-- 예제코드 작성 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of event control</title>
+</head>
+<body>
+  <form>
+    <input id="textbox" type="text" />
+    <input id="resetBtn1" type="reset" value="reset1" />
+    <input id="resetBtn2" type="reset" value="reset2" />
+  </form>
+</body>
+<script>
+  var textbox = document.getElementById('textbox');
+  var resetBtn1 = document.getElementById('resetBtn1');
+  var resetBtn2 = document.getElementById('resetBtn2');
+
+  //preventDefault() 적용 전
+  textbox.value = 'abcde';
+  resetBtn1.click();
+  console.log(textbox.value); //(빈 문자열)
+  
+  //preventDefault() 적용 후
+  textbox.value = 'abcde';
+  resetBtn1.addEventListener('click', function(e) {
+    e.preventDefault();
+  });
+  resetBtn1.click();
+  console.log(textbox.value); //abcde
+  
+  //stopImmediatePropagation() 적용
+  resetBtn2.addEventListener('click', function(e) {
+    console.log('first handler');
+    if(textbox.value === 'stop') {
+      e.stopImmediatePropagation();
+    }
+  });
+  resetBtn2.addEventListener('click', function() {
+    console.log('second handler');
+  });
+
+  resetBtn2.click();  //first handler
+                      //second handler
+
+  textbox.value = 'stop';
+  resetBtn2.click();  //first handler
+</script>
+</html>
 ```
 
 ## 이벤트 전달 관련
@@ -47,15 +117,63 @@
 `Event.AT_TARGET` | 2 | 실제 이벤트가 발생한 이벤트 타겟에서 실행 중
 `Event.BUBBLING_PHASE` | 3 | 버블링 중
 
-```html
-<!-- 예제코드 작성 -->
-```
-
 ### `Event.stopPropagation()`
 - 이벤트 전달을 중단한다.
 
 ```html
-<!-- 예제코드 작성 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of event propagation</title>
+</head>
+<body id="body">
+  body
+  <div id="outsideDiv">
+    outside div
+    <div id="insideDiv">
+      inside div
+    </div>
+  </div>
+</body>
+<script>
+var body = document.getElementById('body');
+var outsideDiv = document.getElementById('outsideDiv');
+var insideDiv = document.getElementById('insideDiv');
+var handlerFunc = function(e) {
+  var eventPhase;
+  switch(e.eventPhase) {
+    case Event.CAPTURING_PHASE:
+      eventPhase = 'Event.CAPTURING_PHASE';
+      break;
+    case Event.AT_TARGET:
+      eventPhase = 'Event.AT_TARGET';
+      break;
+    case Event.BUBBLING_PHASE:
+      eventPhase = 'Event.BUBBLING_PHASE';
+      break;
+  }
+  console.log(this.id + ' ---> ' + eventPhase + '(value: ' + e.eventPhase + ')');
+
+  //버블링 상태에서 현재 타겟이 outsideDiv이면 이벤트 전파를 중단한다.
+  //그러므로 body로 이벤트 전파가 되지 않는다.
+  if(e.eventPhase === Event.BUBBLING_PHASE && e.currentTarget.id === 'outsideDiv') {
+    e.stopPropagation();
+  }
+};
+
+body.addEventListener('click', handlerFunc, false);
+body.addEventListener('click', handlerFunc, true);
+outsideDiv.addEventListener('click', handlerFunc, false);
+outsideDiv.addEventListener('click', handlerFunc, true);
+insideDiv.addEventListener('click', handlerFunc);
+
+insideDiv.click();  //body ---> Event.CAPTURING_PHASE(value: 1)
+                    //outsideDiv ---> Event.CAPTURING_PHASE(value: 1)
+                    //insideDiv ---> Event.AT_TARGET(value: 2)
+                    //outsideDiv ---> Event.BUBBLING_PHASE(value: 3)
+</script>
+</html>
 ```
 
 ## 이벤트 강제 발생
@@ -80,7 +198,25 @@
 반환값 | 이벤트 발생 후 등록되 있던 이벤트 핸들러 실행 시, `Event.preventDefault()`가 실행되었을 경우 `false`, 그렇지 않으면 `true`를 반환
 
 ```html
-<!-- 예제코드 작성 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Example of event trigger</title>
+</head>
+<body>
+  <input id="btn" type="button" value="button" />
+</body>
+<script>
+  var btn = document.getElementById('btn');
+  btn.addEventListener('click', function() {
+    console.log('click!!!');
+  });
+
+  var clickEvent = new Event('click');
+  btn.dispatchEvent(clickEvent);  //click!!!
+</script>
+</html>
 ```
 
 ## 참고
