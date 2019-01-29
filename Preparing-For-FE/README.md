@@ -17,3 +17,4 @@
 190126 | 教材１のSection 4-0とSection 4-1を読む。
 190127 | 教材１のSection 4-2からSection 4-4まで読む。
 190128 | 教材１のSection 5-0とSection 5-1を読む。
+190129 | 教材１のSection 5-2からSection 5-4まで読む。
