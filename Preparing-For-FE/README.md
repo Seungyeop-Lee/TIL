@@ -25,3 +25,4 @@
 190203 | 教材１のSection 6-3を読む。
 190204 | 教材１のSection 6-4とSection 7-0を読む。
 190205 | 教材１のSection 7-1とSection 7-2を読む。
+190206 | 教材１のSection 7-3を読む。Section 7-4は読んでいる。
