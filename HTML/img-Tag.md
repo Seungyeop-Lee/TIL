@@ -9,7 +9,7 @@
 - 닫힘 태그는 없다.
 
 ```html
-<img src="https://cdn.pixabay.com/photo/2015/09/17/17/25/code-944499_1280.jpg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Suitcase_icon_green.svg/1024px-Suitcase_icon_green.svg.png">
 ```
 
 [예제코드 실행 결과(codepen)](https://codepen.io/seungyeop-lee/pen/ZwrmpK)
@@ -23,7 +23,7 @@
   그러므로 `alt`속성에 되도록 그림을 설명하는 텍스트를 삽입하는 것을 추천한다.
 
 ```html
-<img src="#" alt="코드 화면">
+<img src="#" alt="서류 가방">
 ```
 
 [예제코드 실행 결과(codepen)](https://codepen.io/seungyeop-lee/pen/exVQBR)
@@ -34,7 +34,7 @@
 - 둘 중에 한 개만 사용 할 경우, 지정하지 않은 부분의 길이는 원본의 비율에 맞춰서 자동으로 조절된다.
 
 ```html
-<img src="https://cdn.pixabay.com/photo/2015/09/17/17/25/code-944499_1280.jpg" height="300" width="500">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Suitcase_icon_green.svg/1024px-Suitcase_icon_green.svg.png" height="300" width="500">
 ```
 
 [예제코드 실행 결과(codepen)](https://codepen.io/seungyeop-lee/pen/VgQVmV)
@@ -47,9 +47,9 @@
 ```html
 <figure>
   <figcaption>
-    <p>코드 화면</p>
+    <p>서류 가방</p>
   </figcaption>
-  <img src="https://cdn.pixabay.com/photo/2015/09/17/17/25/code-944499_1280.jpg" height="300" width="500">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Suitcase_icon_green.svg/1024px-Suitcase_icon_green.svg.png" height="300" width="300">
 </figure>
 ```
 
