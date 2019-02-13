@@ -8,18 +8,25 @@
 - `<a>`태그 내부에 텍스트를 위치시키면 텍스트링크, 이미지를 위치시키면 이미지 태그가 된다.
 
 ```html
+<div>
+  <a href="">Link</a>
+  <a href=""><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Suitcase_icon_green.svg/1024px-Suitcase_icon_green.svg.png" height="50px"></a>
+<div>
 ```
 
-[예제코드 실행 결과(codepen)]()
+[예제코드 실행 결과(codepen)](https://codepen.io/seungyeop-lee/pen/xMJrqO)
 
 ### `href`속성
 
 - 링크의 목적지를 나타내는 속성이다.
 
 ```html
+<div>
+  <a href="https://www.google.com">Google</a>
+<div>
 ```
 
-[예제코드 실행 결과(codepen)]()
+[예제코드 실행 결과(codepen)](https://codepen.io/seungyeop-lee/pen/gqjRme)
 
 ### `target`속성
 
@@ -34,19 +41,30 @@
 framename | 프레임의 name속성이 속성값과 일치하는 프레임에서 열림
 
 ```html
+<div>
+  <p><a href="https://www.google.com" target="_blank">Google(target="_blank")</a></p>
+  <p><a href="https://www.google.com" target="_self">Google(target="_self")</a></p>
+  <p><a href="https://www.google.com" target="_top">Google(target="_top")</a></p>
+  <p><a href="https://www.google.com" target="frame1">Google(target="frame1")</a></p>
+  <p><a href="https://www.google.com" target="_parent">Google(target="_parent")</a></p>
+</div>
+<iframe name="frame1" width="500px" height="500px" src="#"></iframe>
 ```
 
-[예제코드 실행 결과(codepen)]()
+[예제코드 실행 결과(codepen)](https://codepen.io/seungyeop-lee/pen/exjRWY)
 
 ### `download`속성
 
 - `href`속성에 설정된 URI의 자원을 다운로드 함을 나타내는 속성이다.
 - 속성값을 지정해주면 다운로드 시 속성값을 이름으로 하여 다운로드된다. 속성값이 없어도 된다.
+- 사용제 제약이 있다. 자세한 사항은 [stackoverflow](https://stackoverflow.com/questions/23872902/chrome-download-attribute-not-working/35290284)를 참조
 
 ```html
+<div>
+  <p>Click to download:<p>
+  <a href="https://www.w3schools.com/jsref/horse.mp3" download="test">horse.mp3 download</a>
+</div>
 ```
-
-[예제코드 실행 결과(codepen)]()
 
 ### `rel`속성
 
@@ -75,9 +93,14 @@ framename | 프레임의 name속성이 속성값과 일치하는 프레임에서
 - 이동하고 싶은 태그에 `id`속성값과 `<a>`태그의 `href`속성값의 #이후의 값을 일치시켜주면 된다. (`id`가 abc라면 `href`속성값은 #abc)
 
 ```html
+<div>
+  <a href="#p">go to p tag</a>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <p id="p">this is p tag</p>
+</div>
 ```
 
-[예제코드 실행 결과(codepen)]()
+[예제코드 실행 결과(codepen)](https://codepen.io/seungyeop-lee/pen/BMPZRP)
 
 ## 그림의 일부분에 링크적용
 
@@ -90,11 +113,6 @@ framename | 프레임의 name속성이 속성값과 일치하는 프레임에서
 3. `<map>`태그의 속성으로 `name`을 추가하고 속성값으로 `usemap의 속성값이 #을 제외한 값`을 추가한다.
 4. `<map>`태그 내부에 `<area>`태그를 위치시킨다.(`<area>`태그에 닫는 태그는 없다.)
 5. `<area>`태그의 필요한 속성들을 추가시킨다.
-
-```html
-```
-
-[예제코드 실행 결과(codepen)]()
 
 ### `<area>`태그의 속성
 
@@ -111,6 +129,17 @@ framename | 프레임의 name속성이 속성값과 일치하는 프레임에서
 `circle` | 원
 `poly` | 다각형
 
+```html
+<div>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Suitcase_icon_green.svg/1024px-Suitcase_icon_green.svg.png" width="300px" usemap="#bag">
+  <map name="bag">
+    <area shape="default" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Suitcase_icon_green.svg/1024px-Suitcase_icon_green.svg.png">
+  </map>
+</div>
+```
+
+[예제코드 실행 결과(codepen)](https://codepen.io/seungyeop-lee/pen/aXjwwN)
+
 #### `<area>`태그의 `coords`속성
 
 링크의 범위(크기)를 나타냄
@@ -120,11 +149,6 @@ framename | 프레임의 name속성이 속성값과 일치하는 프레임에서
 x1, y1, x2, y2 | 왼쪽 상단 꼭지점(x1, y1)과 우측하단 꼭지점(x2, y2)로 사각형 범위를 표현<br>`shape="rect"`인 경우 사용
 x, y, radius | 원의 중심(x, y)와 반지름(radius)로 원 범위를 표현<br>`shape="circle"`인 경우 사용
 x1, y1, x2, y2, ..., xn, yn | 각 좌표를 꼭지점으로 하는 다각형 범위를 표현<br>`shape="poly"`인 경우 사용
-
-```html
-```
-
-[예제코드 실행 결과(codepen)]()
 
 ## 참고
 
