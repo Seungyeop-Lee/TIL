@@ -22,6 +22,9 @@
 반환값 | timeoutID. `clearTimeout()`으로 타이머를 취소 할 때 사용
 
 ```javascript
+var timeoutId = setTimeout.(function() {
+  console.log('excuted after 1sec');
+}, 1000);
 ```
 
 ## `setInterval()`
@@ -36,6 +39,9 @@
 반환값 | intervalID. `clearInterval()`으로 타이머를 취소 할 때 사용
 
 ```javascript
+var intervalId = setInterval.(function() {
+  console.log('excuted every 1sec');
+}, 1000);
 ```
 
 ## `clearTimeout()`, `clearInterval()`
@@ -51,6 +57,8 @@
 `intervalID` | 타이머를 취소 시킬 intervalID
 
 ```javascript
+clearTimeout(timeoutId);
+clearInterval(intervalId);
 ```
 
 ## 참고
