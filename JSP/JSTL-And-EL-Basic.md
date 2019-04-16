@@ -80,6 +80,7 @@
 - 내장 객체를 표기하지 않을경우, 4개의 스코프(application, session, request, page)에 해당하는 내장 객체 전체를 대상으로 해당 표현에 맞는 데이터를 검색한다.
   - 검색 순서는 page -> request -> session -> application이며, 처음 찾은 데이터를 리턴
 - 특정 스코프의 내장 객체에 저장되어 있는 속성에 접근하려는 경우에는 `${내장객체.표현}`의 형태를 사용한다.
+- EL에서 접근한 객체의 메소드를 실행하는 것도 가능하다. (ex. `${loginUser.regDate.toString()}`)
 
 ## JSTL(JSP Standard Tag Library)
 
