@@ -1,4 +1,4 @@
-# IntelliJ Shortcut 정리
+# IntelliJ Shortcut 정리 (Windows)
 
 - IntelliJ의 플러그인 중 하나인 `IDE Features Trainer`에 등장하는 단축키를 위주로 유용한 단축키를 정리한다.
 
