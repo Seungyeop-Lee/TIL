@@ -52,7 +52,15 @@
 - Console 창에서 `monitorEvents('이벤트 감시 부분의 DOM', '이벤트 종류')`메소드를 이용하면 해당 부분의 해당 이벤트가 발생하였을 경우, 이벤트의 정보가 console에 출력된다.
   - ex: `monitorEvents('document.body', 'click');`
 
+## 크롬에서 캐쉬 사용하지 않게 하는 방법
+
+1. 개발자 도구를 연다.
+2. settings로 들어간다. (F1)
+3. Preferences -> Network -> Disable cache (while DevTools is open)을 체크한다.
+4. 끝!
+
 ## 참고
 
 - [[토크ON세미나] Javascript 디버깅 및 테스트 방법 1강 | T아카데미](https://youtu.be/_RMRIPz4Xr0)
 - [[토크ON세미나] Javascript 디버깅 및 테스트 방법 2강 | T아카데미](https://youtu.be/TSw69uo-1e0)
+- [[크롬/Chrome] 개발자도구 - 캐시 사용 없이 새로고침 하기](https://kkotkkio.tistory.com/55)
